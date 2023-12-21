@@ -1,7 +1,7 @@
 const App = () => {
   return (
     <>
-      <h1>Vite + React</h1>
+      <h1 className='underline text-3xl font-bold'>Vite + React</h1>
     </>
   );
 };
