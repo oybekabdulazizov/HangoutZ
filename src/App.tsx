@@ -2,10 +2,10 @@ import { Button } from './components/ui/button';
 
 const App = () => {
   return (
-    <>
-      <h1 className='underline text-3xl font-bold'>Vite + React</h1>
+    <div className='font-poppins'>
+      <h1 className='font-thin text-4xl'>Vite + React</h1>
       <Button>Click Me!</Button>
-    </>
+    </div>
   );
 };
 
