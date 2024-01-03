@@ -1,11 +1,16 @@
-import { Button } from './components/ui/button';
+import { Route, Routes } from 'react-router-dom';
+
+const Home = () => {
+  return <>Hello world</>;
+};
 
 const App = () => {
   return (
-    <div className='font-poppins'>
-      <h1 className='font-thin text-4xl'>Vite + React</h1>
-      <Button>Click Me!</Button>
-    </div>
+    <>
+      <Routes>
+        <Route path='/' element={<Home />} />
+      </Routes>
+    </>
   );
 };
 
