@@ -1,8 +1,9 @@
-import { Link, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
 import Layout from './components/shared/Layout';
+import Home from './pages/Home';
 
-const Home = () => {
+/* const Home = () => {
   return (
     <div className='wrapper'>
       <h3 className='font-thin text-4xl'>Links:</h3>
@@ -22,7 +23,7 @@ const Home = () => {
       </div>
     </div>
   );
-};
+}; */
 
 const SignUp = () => {
   return <>TODO: Implement Sign Up page</>;
