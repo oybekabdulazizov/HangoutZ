@@ -1,10 +1,19 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/query';
 
+import { authApi } from './apis/authApi';
+
 const createStore = () =>
   configureStore({
-    reducer: {},
+    reducer: {
+      [authApi.reducerPath]: authApi.reducer,
+    },
+    middleware: (getDefaultMiddleware) => {
+      return getDefaultMiddleware().concat(authApi.middleware);
+    },
   });
 
 export const store = createStore();
 setupListeners(store.dispatch);
+
+export { useSignUpMutation } from './apis/authApi';

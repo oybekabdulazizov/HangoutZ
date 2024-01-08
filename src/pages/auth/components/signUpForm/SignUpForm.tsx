@@ -12,6 +12,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { useSignUpMutation } from '@/store';
 
 const formSchema = z
   .object({
@@ -53,13 +54,20 @@ const initialValues = {
 };
 
 const SignUpForm: FC = ({}) => {
+  const [signUp] = useSignUpMutation();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: initialValues,
   });
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log(values);
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    try {
+      const res = await signUp(values).unwrap();
+      if (res.status !== 400) form.reset();
+    } catch (err: any) {
+      console.log(err);
+    }
   };
 
   return (
@@ -165,7 +173,9 @@ const SignUpForm: FC = ({}) => {
               </FormItem>
             )}
           />
-          <Button type='submit'>Submit</Button>
+          <Button type='submit' className='rounded-xl'>
+            Submit
+          </Button>
         </form>
       </Form>
     </div>
