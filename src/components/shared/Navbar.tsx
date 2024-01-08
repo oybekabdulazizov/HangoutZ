@@ -16,7 +16,7 @@ const Navbar: FC = ({}) => {
           <Button className='rounded-full' size='lg'>
             <Link to='/auth/sign-in'>Log in</Link>
           </Button>
-          <Link to='/auth/log-in' className='text-black'>
+          <Link to='/auth/sign-up' className='text-black'>
             Sign up
           </Link>
         </div>

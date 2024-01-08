@@ -96,6 +96,10 @@ module.exports = {
         'dotted-pattern': "url('/assets/images/dotted-pattern.png')",
         'hero-img': "url('/assets/images/hero.png')",
       },
+
+      boxShadow: {
+        'auth-card': '0px 14px 25px 10px rgba(0,0,0,0.1);',
+      },
     },
   },
   plugins: [require('tailwindcss-animate')],

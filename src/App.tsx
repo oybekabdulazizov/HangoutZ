@@ -2,10 +2,11 @@ import { Route, Routes } from 'react-router-dom';
 
 import Layout from './components/shared/Layout';
 import Home from './pages/events';
+import SignUp from './pages/auth/signup';
 
-const SignUp = () => {
+/* const SignUp = () => {
   return <>TODO: Implement Sign Up page</>;
-};
+}; */
 
 const SignIn = () => {
   return <>TODO: Implement Sign In page</>;
