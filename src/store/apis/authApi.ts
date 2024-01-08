@@ -1,5 +1,6 @@
-import { axiosPublic } from '@/lib/api/axiosApi';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+
+import { BASE_URL } from '@/lib/api/axiosApi';
 
 const authApi = createApi({
   reducerPath: 'authApi',
@@ -11,7 +12,7 @@ const authApi = createApi({
       signUp: builder.mutation({
         query: (credentials) => {
           return {
-            url: `${axiosPublic}/auth/sign-up`,
+            url: `${BASE_URL}/auth/sign-up`,
             method: 'POST',
             body: credentials,
           };
