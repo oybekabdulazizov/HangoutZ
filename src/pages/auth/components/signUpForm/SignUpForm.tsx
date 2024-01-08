@@ -13,6 +13,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useSignUpMutation } from '@/store';
+import useTokens from '@/pages/hooks/useTokens';
 
 const formSchema = z
   .object({
@@ -55,6 +56,7 @@ const initialValues = {
 
 const SignUpForm: FC = ({}) => {
   const [signUp] = useSignUpMutation();
+  const { setTokens } = useTokens();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -65,11 +67,18 @@ const SignUpForm: FC = ({}) => {
     try {
       const res = await signUp(values).unwrap();
       if (res.status !== 400) form.reset();
+      setTokens('session-token', res.sessionToken, {
+        expires: new Date(res.sessionTokenExpiresAt),
+      });
+      setTokens('refresh-token', res.refreshToken, {
+        expires: new Date(res.refreshTokenExpiresAt),
+      });
     } catch (err: any) {
       console.log(err);
     }
   };
-
+  // name01@lastname01.com
+  // 2023-01-01T01:00
   return (
     <div className='w-full'>
       <Form {...form}>
