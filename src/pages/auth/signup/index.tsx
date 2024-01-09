@@ -1,4 +1,5 @@
 import { FC } from 'react';
+
 import SignUpForm from './SignUpForm';
 
 const SignUp: FC = ({}) => {

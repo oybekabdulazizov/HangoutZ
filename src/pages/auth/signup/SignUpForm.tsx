@@ -77,8 +77,7 @@ const SignUpForm: FC = ({}) => {
       console.log(err);
     }
   };
-  // name01@lastname01.com
-  // 2023-01-01T01:00
+
   return (
     <div className='w-full'>
       <Form {...form}>
