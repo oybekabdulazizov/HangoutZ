@@ -18,9 +18,18 @@ const authApi = createApi({
           };
         },
       }),
+      logIn: builder.mutation({
+        query: (credentials) => {
+          return {
+            url: `${BASE_URL}/auth/log-in`,
+            method: 'POST',
+            body: credentials,
+          };
+        },
+      }),
     };
   },
 });
 
 export { authApi };
-export const { useSignUpMutation } = authApi;
+export const { useSignUpMutation, useLogInMutation } = authApi;

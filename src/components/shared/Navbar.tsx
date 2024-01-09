@@ -14,7 +14,7 @@ const Navbar: FC = ({}) => {
 
         <div className='flex justify-between items-center w-48'>
           <Button className='rounded-full' size='lg'>
-            <Link to='/auth/sign-in'>Log in</Link>
+            <Link to='/auth/log-in'>Log in</Link>
           </Button>
           <Link to='/auth/sign-up' className='text-black'>
             Sign up
