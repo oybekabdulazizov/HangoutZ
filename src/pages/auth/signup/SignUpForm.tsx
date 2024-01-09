@@ -14,36 +14,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useSignUpMutation } from '@/store';
 import useTokens from '@/pages/hooks/useTokens';
-
-const formSchema = z
-  .object({
-    name: z
-      .string()
-      .trim()
-      .min(2, 'Name must be at least 2 characters')
-      .max(100, 'Name cannot be longer than 100 characters'),
-    lastname: z
-      .string()
-      .trim()
-      .min(2, 'Lastname must be at least 2 characters')
-      .max(100, 'Lastname cannot be longer than 100 characters'),
-    email: z.string().trim().email('Please provide a valid email'),
-    dateOfBirth: z.string().trim().min(16, 'Date of birth is required'),
-    password: z
-      .string()
-      .trim()
-      .min(8, 'Password must be at least 8 characters')
-      .max(64, 'Password cannot be longer that 64 characters'),
-    passwordConfirmation: z
-      .string()
-      .trim()
-      .min(8, 'Password must be at least 8 characters')
-      .max(64, 'Password cannot be longer that 64 characters'),
-  })
-  .refine((values) => values.password === values.passwordConfirmation, {
-    path: ['passwordConfirmation'],
-    message: 'Password and its confirmation must match',
-  });
+import { signupFormSchema } from '@/lib/schemas/authSchemas';
 
 const initialValues = {
   name: '',
@@ -58,12 +29,12 @@ const SignUpForm: FC = ({}) => {
   const [signUp] = useSignUpMutation();
   const { setTokens } = useTokens();
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof signupFormSchema>>({
+    resolver: zodResolver(signupFormSchema),
     defaultValues: initialValues,
   });
 
-  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+  const onSubmit = async (values: z.infer<typeof signupFormSchema>) => {
     try {
       const res = await signUp(values).unwrap();
       if (res.status !== 400) form.reset();

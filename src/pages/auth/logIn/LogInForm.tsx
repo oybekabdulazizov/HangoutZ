@@ -14,15 +14,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useLogInMutation } from '@/store';
 import useTokens from '@/pages/hooks/useTokens';
-
-const loginFormSchema = z.object({
-  email: z.string().trim().email('Please provide a valid email'),
-  password: z
-    .string()
-    .trim()
-    .min(8, 'Password must be at least 8 characters')
-    .max(64, 'Password cannot be longer that 64 characters'),
-});
+import { loginFormSchema } from '@/lib/schemas/authSchemas';
 
 const initialValues = {
   email: '',
