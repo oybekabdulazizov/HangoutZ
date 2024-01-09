@@ -13,7 +13,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useLogInMutation } from '@/store';
-import useTokens from '@/pages/hooks/useTokens';
+import useTokens from '@/hooks/useTokens';
 import { loginFormSchema } from '@/lib/schemas/authSchemas';
 import { loginInitialValue } from '@/lib/constants';
 

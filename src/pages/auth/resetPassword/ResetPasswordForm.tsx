@@ -12,7 +12,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import useTokens from '@/pages/hooks/useTokens';
+import useTokens from '@/hooks/useTokens';
 import { useResetPasswordMutation } from '@/store';
 import { resetPasswordFormSchema } from '@/lib/schemas/authSchemas';
 import { resetPasswordInitialValues } from '@/lib/constants';
