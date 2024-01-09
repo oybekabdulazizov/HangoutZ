@@ -15,11 +15,7 @@ import { Button } from '@/components/ui/button';
 import { useLogInMutation } from '@/store';
 import useTokens from '@/pages/hooks/useTokens';
 import { loginFormSchema } from '@/lib/schemas/authSchemas';
-
-const initialValues = {
-  email: '',
-  password: '',
-};
+import { loginInitialValue } from '@/lib/constants';
 
 const LogInForm: FC = ({}) => {
   const [logIn] = useLogInMutation();
@@ -27,7 +23,7 @@ const LogInForm: FC = ({}) => {
 
   const form = useForm<z.infer<typeof loginFormSchema>>({
     resolver: zodResolver(loginFormSchema),
-    defaultValues: initialValues,
+    defaultValues: loginInitialValue,
   });
 
   const onSubmit = async (values: z.infer<typeof loginFormSchema>) => {

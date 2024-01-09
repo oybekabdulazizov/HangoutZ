@@ -15,15 +15,7 @@ import { Button } from '@/components/ui/button';
 import { useSignUpMutation } from '@/store';
 import useTokens from '@/pages/hooks/useTokens';
 import { signupFormSchema } from '@/lib/schemas/authSchemas';
-
-const initialValues = {
-  name: '',
-  lastname: '',
-  email: '',
-  dateOfBirth: '',
-  password: '',
-  passwordConfirmation: '',
-};
+import { signupInitialValues } from '@/lib/constants';
 
 const SignUpForm: FC = ({}) => {
   const [signUp] = useSignUpMutation();
@@ -31,7 +23,7 @@ const SignUpForm: FC = ({}) => {
 
   const form = useForm<z.infer<typeof signupFormSchema>>({
     resolver: zodResolver(signupFormSchema),
-    defaultValues: initialValues,
+    defaultValues: signupInitialValues,
   });
 
   const onSubmit = async (values: z.infer<typeof signupFormSchema>) => {

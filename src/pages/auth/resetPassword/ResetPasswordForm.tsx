@@ -15,13 +15,7 @@ import { Button } from '@/components/ui/button';
 import useTokens from '@/pages/hooks/useTokens';
 import { useResetPasswordMutation } from '@/store';
 import { resetPasswordFormSchema } from '@/lib/schemas/authSchemas';
-
-const initialValues = {
-  email: '',
-  oldPassword: '',
-  newPassword: '',
-  confirmNewPassword: '',
-};
+import { resetPasswordInitialValues } from '@/lib/constants';
 
 const ResetPasswordForm: FC = ({}) => {
   const [resetPassword] = useResetPasswordMutation();
@@ -29,7 +23,7 @@ const ResetPasswordForm: FC = ({}) => {
 
   const form = useForm<z.infer<typeof resetPasswordFormSchema>>({
     resolver: zodResolver(resetPasswordFormSchema),
-    defaultValues: initialValues,
+    defaultValues: resetPasswordInitialValues,
   });
 
   const onSubmit = async (values: z.infer<typeof resetPasswordFormSchema>) => {
