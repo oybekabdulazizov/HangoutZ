@@ -46,7 +46,7 @@ const signupFormSchema = z
       .min(2, 'Lastname must be at least 2 characters')
       .max(100, 'Lastname cannot be longer than 100 characters'),
     email: z.string().trim().email('Please provide a valid email'),
-    dateOfBirth: z.string().trim().min(16, 'Date of birth is required'),
+    dateOfBirth: z.string().trim().min(10, 'Date of birth is required'),
     password: z
       .string()
       .trim()
