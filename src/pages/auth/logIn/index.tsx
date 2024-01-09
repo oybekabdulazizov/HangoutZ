@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import LogInForm from '../components/logInForm/LogInForm';
+import LogInForm from './LogInForm';
 
 const LogIn: FC = ({}) => {
   return (

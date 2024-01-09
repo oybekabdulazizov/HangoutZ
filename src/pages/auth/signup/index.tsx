@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import SignUpForm from '../components/signUpForm/SignUpForm';
+import SignUpForm from './SignUpForm';
 
 const SignUp: FC = ({}) => {
   return (
