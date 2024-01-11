@@ -20,9 +20,9 @@ import { newEventInitialValues } from '@/lib/constants';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useCreateEventMutation } from '@/store';
-import { eventSchema } from '@/lib/schemas/eventSchema';
 import { Textarea } from '@/components/ui/textarea';
 import { axiosPrivate } from '@/lib/api/axiosApi';
+import { eventSchema } from '@/lib/schemas';
 
 const CreateEventForm: FC = ({}) => {
   const [createEvent] = useCreateEventMutation();

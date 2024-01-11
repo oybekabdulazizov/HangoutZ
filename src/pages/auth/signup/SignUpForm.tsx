@@ -14,8 +14,8 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useSignUpMutation } from '@/store';
 import useTokens from '@/hooks/useTokens';
-import { signupFormSchema } from '@/lib/schemas/authSchemas';
 import { signupInitialValues } from '@/lib/constants';
+import { signupFormSchema } from '@/lib/schemas';
 
 const SignUpForm: FC = ({}) => {
   const [signUp] = useSignUpMutation();

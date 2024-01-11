@@ -14,8 +14,8 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useLogInMutation } from '@/store';
 import useTokens from '@/hooks/useTokens';
-import { loginFormSchema } from '@/lib/schemas/authSchemas';
 import { loginInitialValue } from '@/lib/constants';
+import { loginFormSchema } from '@/lib/schemas';
 
 const LogInForm: FC = ({}) => {
   const [logIn] = useLogInMutation();

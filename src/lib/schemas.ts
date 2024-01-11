@@ -1,6 +1,6 @@
 import * as z from 'zod';
 
-const loginFormSchema = z.object({
+export const loginFormSchema = z.object({
   email: z.string().trim().email('Please provide a valid email'),
   password: z
     .string()
@@ -9,7 +9,7 @@ const loginFormSchema = z.object({
     .max(64, 'Password cannot be longer that 64 characters'),
 });
 
-const resetPasswordFormSchema = z
+export const resetPasswordFormSchema = z
   .object({
     email: z.string().trim().email('Please provide a valid email'),
     oldPassword: z
@@ -33,7 +33,7 @@ const resetPasswordFormSchema = z
     message: 'New password and its confirmation must match',
   });
 
-const signupFormSchema = z
+export const signupFormSchema = z
   .object({
     name: z
       .string()
@@ -63,4 +63,32 @@ const signupFormSchema = z
     message: 'Password and its confirmation must match',
   });
 
-export { loginFormSchema, resetPasswordFormSchema, signupFormSchema };
+export const eventSchema = z.object({
+  title: z
+    .string()
+    .trim()
+    .min(1, 'Title is required')
+    .max(100, 'Title cannot be longer than 100 characters'),
+  description: z
+    .string()
+    .trim()
+    .min(1, 'Description is required')
+    .max(500, 'Description cannot be longer than 500 characters'),
+  location: z
+    .string()
+    .trim()
+    .min(1, 'Location is required')
+    .max(255, 'Location cannot be longer than 255 characters'),
+  category: z
+    .string()
+    .trim()
+    .min(1, 'Category is required')
+    .max(100, 'Category cannot be longer than 100 characters'),
+  startDateTime: z.date(),
+  finishDateTime: z.date(),
+  url: z
+    .string()
+    .trim()
+    .url()
+    .max(255, 'URL cannot be longer than 255 characters'),
+});

@@ -14,8 +14,8 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import useTokens from '@/hooks/useTokens';
 import { useResetPasswordMutation } from '@/store';
-import { resetPasswordFormSchema } from '@/lib/schemas/authSchemas';
 import { resetPasswordInitialValues } from '@/lib/constants';
+import { resetPasswordFormSchema } from '@/lib/schemas';
 
 const ResetPasswordForm: FC = ({}) => {
   const [resetPassword] = useResetPasswordMutation();
