@@ -18,3 +18,13 @@ export const signupInitialValues = {
   password: '',
   passwordConfirmation: '',
 };
+
+export const newEventInitialValues = {
+  title: '',
+  description: '',
+  location: '',
+  category: '',
+  startDateTime: new Date(),
+  finishDateTime: new Date(),
+  url: '',
+};
