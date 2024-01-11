@@ -14,7 +14,7 @@ export const signupInitialValues = {
   name: '',
   lastname: '',
   email: '',
-  dateOfBirth: '',
+  dateOfBirth: new Date(),
   password: '',
   passwordConfirmation: '',
 };

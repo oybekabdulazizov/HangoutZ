@@ -2,6 +2,9 @@ import { FC } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
+import DatePicker from 'react-datepicker';
+
+import calendarIcon from '@/assets/icons/calendar.svg';
 
 import {
   Form,
@@ -28,7 +31,12 @@ const SignUpForm: FC = ({}) => {
 
   const onSubmit = async (values: z.infer<typeof signupFormSchema>) => {
     try {
-      const res = await signUp(values).unwrap();
+      const dateOfBirthStr = values.dateOfBirth.toISOString();
+      const newUser = {
+        ...values,
+        dateOfBirth: dateOfBirthStr.substring(0, dateOfBirthStr.indexOf('T')),
+      };
+      const res = await signUp(newUser).unwrap();
       if (res.status !== 400) form.reset();
       setTokens('session-token', res.sessionToken, {
         expires: new Date(res.sessionTokenExpiresAt),
@@ -37,7 +45,11 @@ const SignUpForm: FC = ({}) => {
         expires: new Date(res.refreshTokenExpiresAt),
       });
     } catch (err: any) {
-      console.log(err);
+      if (err.data.message === 'Email taken') {
+        form.setError('email', { type: 'custom', message: err.data.message });
+      } else {
+        console.log(err);
+      }
     }
   };
 
@@ -100,13 +112,26 @@ const SignUpForm: FC = ({}) => {
             control={form.control}
             name='dateOfBirth'
             render={({ field }) => (
-              <FormItem>
+              <FormItem className='w-full'>
                 <FormControl>
-                  <Input
-                    placeholder='Date of birth'
-                    {...field}
-                    className='input-field px-4'
-                  />
+                  <div className='flex justify-center items-center h-[54px] w-full overflow-hidden rounded-xl bg-grey-50 px-4 py-2'>
+                    <img
+                      src={calendarIcon}
+                      alt='calendar-icon'
+                      width={24}
+                      height={24}
+                      className='filter-grey'
+                    />
+                    <p className='ml-2 whitespace-nowrap text-grey-600'>
+                      Date of:
+                    </p>
+                    <DatePicker
+                      selected={field.value}
+                      onChange={(date: Date) => field.onChange(date)}
+                      dateFormat={'yyyy-MM-dd'}
+                      wrapperClassName='datePicker'
+                    />
+                  </div>
                 </FormControl>
                 <FormMessage />
               </FormItem>
