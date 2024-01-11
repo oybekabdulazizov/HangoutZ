@@ -23,6 +23,7 @@ import { useCreateEventMutation } from '@/store';
 import { Textarea } from '@/components/ui/textarea';
 import { axiosPrivate } from '@/lib/api/axiosApi';
 import { eventSchema } from '@/lib/schemas';
+import Dropdown from '@/components/shared/dropdown/Dropdown';
 
 const CreateEventForm: FC = ({}) => {
   const [createEvent] = useCreateEventMutation();
@@ -51,9 +52,9 @@ const CreateEventForm: FC = ({}) => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className='flex flex-col gap-3'
+        className='flex flex-col gap-5'
       >
-        <div className='flex flex-col gap-3 md:flex-row'>
+        <div className='flex flex-col gap-5 md:flex-row'>
           <FormField
             control={form.control}
             name='title'
@@ -76,10 +77,9 @@ const CreateEventForm: FC = ({}) => {
             render={({ field }) => (
               <FormItem className='w-full'>
                 <FormControl>
-                  <Input
-                    placeholder='Category'
-                    {...field}
-                    className='input-field px-4'
+                  <Dropdown
+                    value={field.value}
+                    onChangeHandler={field.onChange}
                   />
                 </FormControl>
                 <FormMessage />
@@ -134,7 +134,7 @@ const CreateEventForm: FC = ({}) => {
           />
         </div>
 
-        <div className='flex flex-col gap-3 md:flex-row'>
+        <div className='flex flex-col gap-5 md:flex-row'>
           <FormField
             control={form.control}
             name='startDateTime'
