@@ -61,7 +61,31 @@ export const signupFormSchema = z
   .refine((values) => values.password === values.passwordConfirmation, {
     path: ['passwordConfirmation'],
     message: 'Password and its confirmation must match',
-  });
+  })
+  .refine(
+    (values) => {
+      const { dateOfBirth } = values;
+      let maxBirthDate = new Date();
+      maxBirthDate = new Date(
+        maxBirthDate.setFullYear(maxBirthDate.getFullYear() - 18)
+      );
+      const minYear = maxBirthDate.getFullYear();
+      const minMonthOnMinYear = maxBirthDate.getMonth() + 1;
+      const minDayOnMinMonthOnMinYear = maxBirthDate.getDate();
+      if (dateOfBirth.getFullYear() < minYear) return true;
+      if (dateOfBirth.getFullYear() == minYear) {
+        if (dateOfBirth.getMonth() + 1 < minMonthOnMinYear) return true;
+        if (dateOfBirth.getMonth() + 1 == minMonthOnMinYear) {
+          if (dateOfBirth.getDate() <= minDayOnMinMonthOnMinYear) return true;
+        }
+      }
+      return false;
+    },
+    {
+      path: ['dateOfBirth'],
+      message: 'You need to be 18 or older to sign up to HangoutZ',
+    }
+  );
 
 export const eventSchema = z.object({
   title: z
