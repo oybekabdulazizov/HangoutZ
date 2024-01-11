@@ -51,9 +51,9 @@ const CreateEventForm: FC = ({}) => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className='flex flex-col gap-5'
+        className='flex flex-col gap-3'
       >
-        <div className='flex flex-col gap-5 md:flex-row'>
+        <div className='flex flex-col gap-3 md:flex-row'>
           <FormField
             control={form.control}
             name='title'
@@ -63,7 +63,7 @@ const CreateEventForm: FC = ({}) => {
                   <Input
                     placeholder='Title'
                     {...field}
-                    className='input-field'
+                    className='input-field px-4'
                   />
                 </FormControl>
                 <FormMessage />
@@ -79,7 +79,7 @@ const CreateEventForm: FC = ({}) => {
                   <Input
                     placeholder='Category'
                     {...field}
-                    className='input-field'
+                    className='input-field px-4'
                   />
                 </FormControl>
                 <FormMessage />
@@ -114,7 +114,7 @@ const CreateEventForm: FC = ({}) => {
             render={({ field }) => (
               <FormItem className='w-full'>
                 <FormControl>
-                  <div className='flex justify-center items-center h-[54px] w-full overflow-hidden rounded-xl bg-grey-50 px-4 py-2'>
+                  <div className='flex justify-center items-center h-[54px] w-full overflow-hidden rounded-xl bg-grey-50 px-4'>
                     <img
                       src={locationIcon}
                       alt='location-icon'
@@ -124,7 +124,7 @@ const CreateEventForm: FC = ({}) => {
                     <Input
                       placeholder='Location'
                       {...field}
-                      className='input-field'
+                      className='input-field px-2'
                     />
                   </div>
                 </FormControl>
@@ -134,7 +134,7 @@ const CreateEventForm: FC = ({}) => {
           />
         </div>
 
-        <div className='flex flex-col gap-5 md:flex-row'>
+        <div className='flex flex-col gap-3 md:flex-row'>
           <FormField
             control={form.control}
             name='startDateTime'
@@ -149,8 +149,8 @@ const CreateEventForm: FC = ({}) => {
                       height={24}
                       className='filter-grey'
                     />
-                    <p className='ml-3 whitespace-nowrap text-grey-600'>
-                      Start Date/Time:
+                    <p className='ml-2 whitespace-nowrap text-grey-600'>
+                      Start Date:
                     </p>
                     <DatePicker
                       selected={field.value}
@@ -180,8 +180,8 @@ const CreateEventForm: FC = ({}) => {
                       height={24}
                       className='filter-grey'
                     />
-                    <p className='ml-3 whitespace-nowrap text-grey-600'>
-                      Finish Date/Time:
+                    <p className='ml-2 whitespace-nowrap text-grey-600'>
+                      Finish Date:
                     </p>
                     <DatePicker
                       selected={field.value}
@@ -199,7 +199,7 @@ const CreateEventForm: FC = ({}) => {
           />
         </div>
 
-        <div className='flex flex-col gap-5 md:flex-row'>
+        <div className='flex flex-col md:flex-row'>
           <FormField
             control={form.control}
             name='url'
@@ -217,7 +217,7 @@ const CreateEventForm: FC = ({}) => {
                     <Input
                       placeholder='URL'
                       {...field}
-                      className='input-field'
+                      className='input-field px-2'
                     />
                   </div>
                 </FormControl>

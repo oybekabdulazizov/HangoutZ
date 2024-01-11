@@ -45,7 +45,7 @@ const ResetPasswordForm: FC = ({}) => {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className='flex flex-col gap-5'
+          className='flex flex-col gap-3'
         >
           <FormField
             control={form.control}
@@ -56,7 +56,7 @@ const ResetPasswordForm: FC = ({}) => {
                   <Input
                     placeholder='Email'
                     {...field}
-                    className='input-field'
+                    className='input-field px-4'
                   />
                 </FormControl>
                 <FormMessage />
@@ -72,7 +72,7 @@ const ResetPasswordForm: FC = ({}) => {
                   <Input
                     placeholder='Old password'
                     {...field}
-                    className='input-field'
+                    className='input-field px-4'
                   />
                 </FormControl>
                 <FormMessage />
@@ -88,7 +88,7 @@ const ResetPasswordForm: FC = ({}) => {
                   <Input
                     placeholder='New password'
                     {...field}
-                    className='input-field'
+                    className='input-field px-4'
                   />
                 </FormControl>
                 <FormMessage />
@@ -104,7 +104,7 @@ const ResetPasswordForm: FC = ({}) => {
                   <Input
                     placeholder='New password confirmation'
                     {...field}
-                    className='input-field'
+                    className='input-field px-4'
                   />
                 </FormControl>
                 <FormMessage />

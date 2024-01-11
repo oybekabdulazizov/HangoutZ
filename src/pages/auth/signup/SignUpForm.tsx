@@ -46,7 +46,7 @@ const SignUpForm: FC = ({}) => {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className='flex flex-col gap-5'
+          className='flex flex-col gap-3'
         >
           <FormField
             control={form.control}
@@ -57,7 +57,7 @@ const SignUpForm: FC = ({}) => {
                   <Input
                     placeholder='Name'
                     {...field}
-                    className='input-field'
+                    className='input-field px-4'
                   />
                 </FormControl>
                 <FormMessage />
@@ -73,7 +73,7 @@ const SignUpForm: FC = ({}) => {
                   <Input
                     placeholder='Lastname'
                     {...field}
-                    className='input-field'
+                    className='input-field px-4'
                   />
                 </FormControl>
                 <FormMessage />
@@ -89,7 +89,7 @@ const SignUpForm: FC = ({}) => {
                   <Input
                     placeholder='Email'
                     {...field}
-                    className='input-field'
+                    className='input-field px-4'
                   />
                 </FormControl>
                 <FormMessage />
@@ -105,7 +105,7 @@ const SignUpForm: FC = ({}) => {
                   <Input
                     placeholder='Date of birth'
                     {...field}
-                    className='input-field'
+                    className='input-field px-4'
                   />
                 </FormControl>
                 <FormMessage />
@@ -121,7 +121,7 @@ const SignUpForm: FC = ({}) => {
                   <Input
                     placeholder='Password'
                     {...field}
-                    className='input-field'
+                    className='input-field px-4'
                   />
                 </FormControl>
                 <FormMessage />
@@ -137,7 +137,7 @@ const SignUpForm: FC = ({}) => {
                   <Input
                     placeholder='Password confirmation'
                     {...field}
-                    className='input-field'
+                    className='input-field px-4'
                   />
                 </FormControl>
                 <FormMessage />

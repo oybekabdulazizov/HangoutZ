@@ -46,7 +46,7 @@ const LogInForm: FC = ({}) => {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className='flex flex-col gap-5'
+          className='flex flex-col gap-3'
         >
           <FormField
             control={form.control}
@@ -57,7 +57,7 @@ const LogInForm: FC = ({}) => {
                   <Input
                     placeholder='Email'
                     {...field}
-                    className='input-field'
+                    className='input-field px-4'
                   />
                 </FormControl>
                 <FormMessage />
@@ -73,7 +73,7 @@ const LogInForm: FC = ({}) => {
                   <Input
                     placeholder='Password'
                     {...field}
-                    className='input-field'
+                    className='input-field px-4'
                   />
                 </FormControl>
                 <FormMessage />
