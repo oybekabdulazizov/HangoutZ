@@ -5,7 +5,7 @@ import Home from './pages/events';
 import SignUp from './pages/auth/signup';
 import LogIn from './pages/auth/logIn';
 import ResetPassword from './pages/auth/resetPassword';
-import CreateEvent from './pages/events/create/page';
+import CreateEvent from './pages/events/create';
 
 const App = () => {
   return (
