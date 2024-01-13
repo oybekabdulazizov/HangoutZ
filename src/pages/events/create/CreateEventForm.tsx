@@ -5,9 +5,6 @@ import * as z from 'zod';
 import DatePicker from 'react-datepicker';
 
 import 'react-datepicker/dist/react-datepicker.css';
-import calendarIcon from '@/assets/icons/calendar.svg';
-import urlIcon from '@/assets/icons/link.svg';
-import locationIcon from '@/assets/icons/location-grey.svg';
 
 import {
   Form,
@@ -25,6 +22,7 @@ import Dropdown from '@/components/shared/dropdown/Dropdown';
 import FileUploader from '@/components/shared/fileUploader/FileUploader';
 import { uploadImage } from '@/lib/utils';
 import useAxiosPrivate from '@/hooks/useAxiosPrivate';
+import { calendarIcon, locationIcon, urlIcon } from '@/assets/icons';
 
 const CreateEventForm: FC = ({}) => {
   const { axiosPrivate } = useAxiosPrivate();

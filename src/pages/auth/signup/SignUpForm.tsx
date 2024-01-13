@@ -4,8 +4,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import DatePicker from 'react-datepicker';
 
-import calendarIcon from '@/assets/icons/calendar.svg';
-
 import {
   Form,
   FormControl,
@@ -19,6 +17,7 @@ import { useSignUpMutation } from '@/store';
 import useTokens from '@/hooks/useTokens';
 import { signupInitialValues } from '@/lib/constants';
 import { signupFormSchema } from '@/lib/schemas';
+import { calendarIcon } from '@/assets/icons';
 
 const SignUpForm: FC = ({}) => {
   const [signUp] = useSignUpMutation();
