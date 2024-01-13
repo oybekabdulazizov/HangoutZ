@@ -98,6 +98,14 @@ export const eventSchema = z.object({
     .trim()
     .min(1, 'Description is required')
     .max(500, 'Description cannot be longer than 500 characters'),
+  thumbnailUrl: z.union([
+    z.literal(''),
+    z
+      .string()
+      .trim()
+      .url()
+      .max(255, 'Thumbnail URL cannot be longer than 255 characters'),
+  ]),
   location: z
     .string()
     .trim()
@@ -110,9 +118,12 @@ export const eventSchema = z.object({
     .max(100, 'Category cannot be longer than 100 characters'),
   startDateTime: z.date(),
   finishDateTime: z.date(),
-  url: z
-    .string()
-    .trim()
-    .url()
-    .max(255, 'URL cannot be longer than 255 characters'),
+  url: z.union([
+    z.literal(''),
+    z
+      .string()
+      .trim()
+      .url()
+      .max(255, 'URL cannot be longer than 255 characters'),
+  ]),
 });
