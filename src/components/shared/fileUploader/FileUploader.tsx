@@ -28,7 +28,7 @@ const FileUploader: React.FC<IFileUploader> = ({
       {...getRootProps({
         multiple: false,
         className:
-          'flex justify-center items-center w-full h-72 overflow-hidden rounded-xl bg-grey-50 hover:cursor-pointer',
+          'flex justify-center items-center w-full h-72 overflow-hidden rounded-xl bg-primary-50 hover:cursor-pointer',
       })}
     >
       <input

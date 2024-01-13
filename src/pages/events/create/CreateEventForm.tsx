@@ -55,9 +55,9 @@ const CreateEventForm: FC = ({}) => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className='flex flex-col gap-5'
+        className='flex flex-col gap-4'
       >
-        <div className='flex flex-col gap-5 md:flex-row'>
+        <div className='flex flex-col gap-4 md:flex-row'>
           <FormField
             control={form.control}
             name='title'
@@ -91,7 +91,7 @@ const CreateEventForm: FC = ({}) => {
           />
         </div>
 
-        <div className='flex flex-col gap-5 md:flex-row'>
+        <div className='flex flex-col gap-4 md:flex-row'>
           <FormField
             control={form.control}
             name='description'
@@ -133,7 +133,7 @@ const CreateEventForm: FC = ({}) => {
             render={({ field }) => (
               <FormItem className='w-full'>
                 <FormControl>
-                  <div className='flex justify-center items-center h-[54px] w-full overflow-hidden rounded-xl bg-grey-50 px-4'>
+                  <div className='flex justify-center items-center h-[54px] w-full overflow-hidden rounded-xl bg-primary-50  px-4'>
                     <img
                       src={locationIcon}
                       alt='location-icon'
@@ -153,14 +153,14 @@ const CreateEventForm: FC = ({}) => {
           />
         </div>
 
-        <div className='flex flex-col gap-5 md:flex-row'>
+        <div className='flex flex-col gap-4 md:flex-row'>
           <FormField
             control={form.control}
             name='startDateTime'
             render={({ field }) => (
               <FormItem className='w-full'>
                 <FormControl>
-                  <div className='flex justify-center items-center h-[54px] w-full overflow-hidden rounded-xl bg-grey-50 px-4 py-2'>
+                  <div className='flex justify-center items-center h-[54px] w-full overflow-hidden rounded-xl bg-primary-50  px-4 py-2'>
                     <img
                       src={calendarIcon}
                       alt='calendar-icon'
@@ -191,7 +191,7 @@ const CreateEventForm: FC = ({}) => {
             render={({ field }) => (
               <FormItem className='w-full'>
                 <FormControl>
-                  <div className='flex justify-center items-center h-[54px] w-full overflow-hidden rounded-xl bg-grey-50 px-4 py-2'>
+                  <div className='flex justify-center items-center h-[54px] w-full overflow-hidden rounded-xl bg-primary-50  px-4 py-2'>
                     <img
                       src={calendarIcon}
                       alt='calendar-icon'
@@ -225,7 +225,7 @@ const CreateEventForm: FC = ({}) => {
             render={({ field }) => (
               <FormItem className='w-full'>
                 <FormControl>
-                  <div className='flex justify-center items-center h-[54px] w-full overflow-hidden rounded-xl bg-grey-50 px-4 py-2'>
+                  <div className='flex justify-center items-center h-[54px] w-full overflow-hidden rounded-xl bg-primary-50  px-4 py-2'>
                     <img
                       src={urlIcon}
                       alt='url-icon'

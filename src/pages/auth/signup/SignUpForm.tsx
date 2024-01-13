@@ -58,7 +58,7 @@ const SignUpForm: FC = ({}) => {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className='flex flex-col gap-3'
+          className='flex flex-col gap-4'
         >
           <FormField
             control={form.control}
@@ -114,7 +114,7 @@ const SignUpForm: FC = ({}) => {
             render={({ field }) => (
               <FormItem className='w-full'>
                 <FormControl>
-                  <div className='flex justify-center items-center h-[54px] w-full overflow-hidden rounded-xl bg-grey-50 px-4 py-2'>
+                  <div className='flex justify-center items-center h-[54px] w-full overflow-hidden rounded-xl bg-primary-50  px-4 py-2'>
                     <img
                       src={calendarIcon}
                       alt='calendar-icon'
@@ -123,7 +123,7 @@ const SignUpForm: FC = ({}) => {
                       className='filter-grey'
                     />
                     <p className='ml-2 whitespace-nowrap text-grey-600'>
-                      Date of:
+                      Date of Birth:
                     </p>
                     <DatePicker
                       selected={field.value}
