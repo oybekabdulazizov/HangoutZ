@@ -29,6 +29,4 @@ export {
   useResetPasswordMutation,
 } from './apis/authApi';
 
-export { useCreateEventMutation } from './apis/eventApi';
-
 export { useGetCategoriesQuery } from './apis/categoryApi';

@@ -1,25 +1,15 @@
-import { BASE_URL } from '@/lib/api/axiosApi';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+
+import { BASE_URL } from '@/lib/api/axiosApi';
 
 const eventApi = createApi({
   reducerPath: 'eventApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'http://localhost:8080',
+    baseUrl: BASE_URL,
   }),
-  endpoints: (builder) => {
-    return {
-      createEvent: builder.mutation({
-        query: (newEvent) => {
-          return {
-            url: `${BASE_URL}/events`,
-            method: 'POST',
-            body: newEvent,
-          };
-        },
-      }),
-    };
+  endpoints: (_builder) => {
+    return {};
   },
 });
 
 export { eventApi };
-export const { useCreateEventMutation } = eventApi;

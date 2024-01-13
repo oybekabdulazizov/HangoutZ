@@ -1,17 +1,18 @@
-import { BASE_URL } from '@/lib/api/axiosApi';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+
+import { BASE_URL } from '@/lib/api/axiosApi';
 
 const categoryApi = createApi({
   reducerPath: 'categoryApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'http://localhost:8080',
+    baseUrl: BASE_URL,
   }),
   endpoints: (builder) => {
     return {
       getCategories: builder.query({
         query: (_arg) => {
           return {
-            url: `${BASE_URL}/categories`,
+            url: '/categories',
             method: 'GET',
           };
         },

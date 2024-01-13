@@ -5,14 +5,14 @@ import { BASE_URL } from '@/lib/api/axiosApi';
 const authApi = createApi({
   reducerPath: 'authApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'http://localhost:8080',
+    baseUrl: `${BASE_URL}/auth`,
   }),
   endpoints: (builder) => {
     return {
       signUp: builder.mutation({
         query: (credentials) => {
           return {
-            url: `${BASE_URL}/auth/sign-up`,
+            url: '/sign-up',
             method: 'POST',
             body: credentials,
           };
@@ -21,7 +21,7 @@ const authApi = createApi({
       logIn: builder.mutation({
         query: (credentials) => {
           return {
-            url: `${BASE_URL}/auth/log-in`,
+            url: '/log-in',
             method: 'POST',
             body: credentials,
           };
@@ -30,7 +30,7 @@ const authApi = createApi({
       resetPassword: builder.mutation({
         query: (credentials) => {
           return {
-            url: `${BASE_URL}/auth/reset-password`,
+            url: '/reset-password',
             method: 'POST',
             body: credentials,
           };
@@ -41,5 +41,6 @@ const authApi = createApi({
 });
 
 export { authApi };
+
 export const { useSignUpMutation, useLogInMutation, useResetPasswordMutation } =
   authApi;

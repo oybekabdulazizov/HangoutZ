@@ -19,16 +19,15 @@ import {
 import { newEventInitialValues } from '@/lib/constants';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { useCreateEventMutation } from '@/store';
 import { Textarea } from '@/components/ui/textarea';
-import { axiosPrivate } from '@/lib/api/axiosApi';
 import { eventSchema } from '@/lib/schemas';
 import Dropdown from '@/components/shared/dropdown/Dropdown';
 import FileUploader from '@/components/shared/fileUploader/FileUploader';
 import { uploadImage } from '@/lib/utils';
+import useAxiosPrivate from '@/hooks/useAxiosPrivate';
 
 const CreateEventForm: FC = ({}) => {
-  const [createEvent] = useCreateEventMutation();
+  const { axiosPrivate } = useAxiosPrivate();
   const [files, setFiles] = useState<File[]>([]);
 
   const form = useForm<z.infer<typeof eventSchema>>({
@@ -45,9 +44,7 @@ const CreateEventForm: FC = ({}) => {
       finishDateTime: values.finishDateTime.toISOString(),
     };
     try {
-      console.log(newEvent);
       const res = await axiosPrivate.post('/events', newEvent);
-      console.log(res);
       if (res.status === 201) form.reset();
     } catch (err: any) {
       console.log(err);
