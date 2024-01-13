@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -24,9 +24,12 @@ import { Textarea } from '@/components/ui/textarea';
 import { axiosPrivate } from '@/lib/api/axiosApi';
 import { eventSchema } from '@/lib/schemas';
 import Dropdown from '@/components/shared/dropdown/Dropdown';
+import FileUploader from '@/components/shared/fileUploader/FileUploader';
+import { uploadImage } from '@/lib/utils';
 
 const CreateEventForm: FC = ({}) => {
   const [createEvent] = useCreateEventMutation();
+  const [files, setFiles] = useState<File[]>([]);
 
   const form = useForm<z.infer<typeof eventSchema>>({
     resolver: zodResolver(eventSchema),
@@ -34,15 +37,18 @@ const CreateEventForm: FC = ({}) => {
   });
 
   const onSubmit = async (values: z.infer<typeof eventSchema>) => {
+    const thumbnailUrl = await uploadImage(files);
     const newEvent = {
       ...values,
+      thumbnailUrl,
       startDateTime: values.startDateTime.toISOString(),
       finishDateTime: values.finishDateTime.toISOString(),
     };
     try {
+      console.log(newEvent);
       const res = await axiosPrivate.post('/events', newEvent);
-      if (res.status === 201) form.reset();
       console.log(res);
+      if (res.status === 201) form.reset();
     } catch (err: any) {
       console.log(err);
     }
@@ -88,7 +94,7 @@ const CreateEventForm: FC = ({}) => {
           />
         </div>
 
-        <div className='flex flex-col md:flex-row'>
+        <div className='flex flex-col gap-5 md:flex-row'>
           <FormField
             control={form.control}
             name='description'
@@ -98,7 +104,23 @@ const CreateEventForm: FC = ({}) => {
                   <Textarea
                     placeholder='Description'
                     {...field}
-                    className='textarea rounded-xl'
+                    className='textarea rounded-xl h-72 resize-none'
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name='thumbnailUrl'
+            render={({ field }) => (
+              <FormItem className='w-full'>
+                <FormControl>
+                  <FileUploader
+                    thumbnailUrl={field.value}
+                    onChangeHandler={field.onChange}
+                    setFiles={setFiles}
                   />
                 </FormControl>
                 <FormMessage />

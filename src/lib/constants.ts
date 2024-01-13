@@ -27,4 +27,9 @@ export const newEventInitialValues = {
   startDateTime: new Date(),
   finishDateTime: new Date(),
   url: '',
+  thumbnailUrl: '',
+};
+
+export const acceptImageTypes = {
+  'image/*': ['.png', '.gif', '.jpeg', '.jpg'],
 };
