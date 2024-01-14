@@ -110,7 +110,7 @@ export const eventSchema = z.object({
     .string()
     .trim()
     .min(1, 'Location is required')
-    .max(255, 'Location cannot be longer than 255 characters'),
+    .max(120, 'Location cannot be longer than 120 characters'),
   category: z
     .string()
     .trim()

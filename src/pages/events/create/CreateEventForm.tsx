@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -22,11 +22,13 @@ import Dropdown from '@/components/shared/dropdown/Dropdown';
 import FileUploader from '@/components/shared/fileUploader/FileUploader';
 import { uploadImage } from '@/lib/utils';
 import useAxiosPrivate from '@/hooks/useAxiosPrivate';
-import { calendarIcon, locationIcon, urlIcon } from '@/assets/icons';
+import { calendarIcon, urlIcon } from '@/assets/icons';
+import AddressAutoFill from '@/components/shared/addressAutoFill/AddressAutoFill';
 
 const CreateEventForm: FC = ({}) => {
   const { axiosPrivate } = useAxiosPrivate();
   const [files, setFiles] = useState<File[]>([]);
+  const [location, setLocation] = useState<string>('');
 
   const form = useForm<z.infer<typeof eventSchema>>({
     resolver: zodResolver(eventSchema),
@@ -38,6 +40,7 @@ const CreateEventForm: FC = ({}) => {
     const newEvent = {
       ...values,
       thumbnailUrl,
+      location,
       startDateTime: values.startDateTime.toISOString(),
       finishDateTime: values.finishDateTime.toISOString(),
     };
@@ -48,6 +51,10 @@ const CreateEventForm: FC = ({}) => {
       console.log(err);
     }
   };
+
+  useEffect(() => {
+    if (location) form.setValue('location', location);
+  }, [location]);
 
   return (
     <Form {...form}>
@@ -124,32 +131,20 @@ const CreateEventForm: FC = ({}) => {
           />
         </div>
 
-        <div className='flex flex-col md:flex-row'>
-          <FormField
-            control={form.control}
-            name='location'
-            render={({ field }) => (
+        <FormField
+          control={form.control}
+          name='location'
+          render={({ field }) => {
+            return (
               <FormItem className='w-full'>
                 <FormControl>
-                  <div className='flex justify-center items-center h-[54px] w-full overflow-hidden rounded-xl bg-primary-50  px-4'>
-                    <img
-                      src={locationIcon}
-                      alt='location-icon'
-                      width={24}
-                      height={24}
-                    />
-                    <Input
-                      placeholder='Location'
-                      {...field}
-                      className='input-field px-2'
-                    />
-                  </div>
+                  <AddressAutoFill field={field} setLocation={setLocation} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
-            )}
-          />
-        </div>
+            );
+          }}
+        />
 
         <div className='flex flex-col gap-4 md:flex-row'>
           <FormField
