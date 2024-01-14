@@ -7,9 +7,20 @@ const eventApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: BASE_URL,
   }),
-  endpoints: (_builder) => {
-    return {};
+  endpoints: (builder) => {
+    return {
+      getEvent: builder.query({
+        query: (eventId) => {
+          return {
+            url: `/events/${eventId}`,
+            method: 'GET',
+          };
+        },
+      }),
+    };
   },
 });
 
 export { eventApi };
+
+export const { useGetEventQuery } = eventApi;

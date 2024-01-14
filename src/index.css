@@ -103,7 +103,7 @@
   }
 
   .h3-bold {
-    @apply font-bold text-[24px] leading-[32px] md:text-[32px] md:leading-[40px];
+    @apply font-bold text-[24px] leading-[32px] md:text-[28px] md:leading-[40px];
   }
 
   /* paragraph text */
@@ -111,12 +111,28 @@
     @apply font-normal text-[24px] leading-[36px];
   }
 
-  .p-regular-40 {
+  .p-bold-20 {
+    @apply font-bold text-[20px] leading-[30px] tracking-[-2];
+  }
+
+  .p-regular-20 {
     @apply text-[20px] font-normal leading-[30px] tracking-[2%];
+  }
+
+  .p-medium-16 {
+    @apply text-[16px] font-medium leading-[24px];
   }
 
   .p-regular-16 {
     @apply text-[16px] font-normal leading-[24px];
+  }
+
+  .p-bold-14 {
+    @apply font-bold text-[14px] leading-[24px];
+  }
+
+  .p-medium-14 {
+    @apply text-[14px] font-medium leading-[24px];
   }
 
   /* shadcn-ui overrides */
@@ -141,7 +157,7 @@
   }
 
   .select-item {
-    @apply py-3 cursor-pointer focus:bg-primary-50 ;
+    @apply py-3 cursor-pointer focus:bg-primary-50;
   }
 }
 

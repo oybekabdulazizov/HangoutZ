@@ -30,3 +30,5 @@ export {
 } from './apis/authApi';
 
 export { useGetCategoriesQuery } from './apis/categoryApi';
+
+export { useGetEventQuery } from './apis/eventApi';

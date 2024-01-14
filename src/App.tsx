@@ -6,6 +6,7 @@ import SignUp from './pages/auth/signup';
 import LogIn from './pages/auth/logIn';
 import ResetPassword from './pages/auth/resetPassword';
 import CreateEvent from './pages/events/create';
+import EventDetails from './pages/events/[id]';
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
         <Route element={<Layout />}>
           <Route path='/' element={<Home />} />
           <Route path='/events/create' element={<CreateEvent />} />
+          <Route path='/events/:id' element={<EventDetails />} />
         </Route>
       </Routes>
     </>
