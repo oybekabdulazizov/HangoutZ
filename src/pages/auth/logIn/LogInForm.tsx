@@ -83,7 +83,7 @@ const LogInForm: FC = ({}) => {
               </FormItem>
             )}
           />
-          <Button type='submit' className='rounded-xl'>
+          <Button type='submit' className='button'>
             Log in
           </Button>
         </form>

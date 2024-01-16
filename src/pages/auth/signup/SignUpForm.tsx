@@ -171,7 +171,7 @@ const SignUpForm: FC = ({}) => {
               </FormItem>
             )}
           />
-          <Button type='submit' className='rounded-xl'>
+          <Button type='submit' className='button'>
             Submit
           </Button>
         </form>
