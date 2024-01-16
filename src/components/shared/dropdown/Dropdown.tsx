@@ -6,7 +6,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '../../ui/select';
-import { CategoryType } from '@/lib/types';
+import { ICategory } from '@/lib/interfaces';
 import IDropdown from './IDropdown';
 
 const Dropdown: React.FC<IDropdown> = ({ value, onChangeHandler }) => {
@@ -22,7 +22,7 @@ const Dropdown: React.FC<IDropdown> = ({ value, onChangeHandler }) => {
           <>
             {data.length > 0 ? (
               <>
-                {data.map((category: CategoryType) => (
+                {data.map((category: ICategory) => (
                   <SelectItem
                     key={category.id}
                     value={category.name}
