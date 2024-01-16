@@ -6,12 +6,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from '../../ui/select';
+import IDropdown from './ICategoryDropdown';
 import { ICategory } from '@/lib/interfaces';
-import IDropdown from './IDropdown';
 
-const Dropdown: React.FC<IDropdown> = ({ value, onChangeHandler }) => {
+const CategoryDropdown: React.FC<IDropdown> = ({ value, onChangeHandler }) => {
   const { data } = useGetCategoriesQuery('');
-
   return (
     <Select onValueChange={onChangeHandler} defaultValue={value}>
       <SelectTrigger className='select-field '>
@@ -25,7 +24,7 @@ const Dropdown: React.FC<IDropdown> = ({ value, onChangeHandler }) => {
                 {data.map((category: ICategory) => (
                   <SelectItem
                     key={category.id}
-                    value={category.name}
+                    value={category.id}
                     className='select-item p-regular-14'
                   >
                     {category.name}
@@ -44,4 +43,4 @@ const Dropdown: React.FC<IDropdown> = ({ value, onChangeHandler }) => {
   );
 };
 
-export default Dropdown;
+export default CategoryDropdown;

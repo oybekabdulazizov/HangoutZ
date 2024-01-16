@@ -1,4 +1,4 @@
 export default interface IDropdown {
-  value?: string;
+  value: string;
   onChangeHandler?: () => void;
 }

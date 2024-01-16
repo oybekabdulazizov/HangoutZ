@@ -18,7 +18,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { eventSchema } from '@/lib/schemas';
-import Dropdown from '@/components/shared/dropdown/Dropdown';
+import CategoryDropdown from '@/components/shared/categoryDropdown/CategoryDropdown';
 import FileUploader from '@/components/shared/fileUploader/FileUploader';
 import { uploadImage } from '@/lib/utils';
 import useAxiosPrivate from '@/hooks/useAxiosPrivate';
@@ -85,7 +85,7 @@ const CreateEventForm: FC = ({}) => {
             render={({ field }) => (
               <FormItem className='w-full'>
                 <FormControl>
-                  <Dropdown
+                  <CategoryDropdown
                     value={field.value}
                     onChangeHandler={field.onChange}
                   />
