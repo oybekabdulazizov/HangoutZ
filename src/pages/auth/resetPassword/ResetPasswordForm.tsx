@@ -32,6 +32,7 @@ const ResetPasswordForm: FC = ({}) => {
       form.reset();
       removeTokens('session-token');
       removeTokens('refresh-token');
+      removeTokens('user');
     } catch (err: any) {
       console.log('caught error: ');
       console.log(err);

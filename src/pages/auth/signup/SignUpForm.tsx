@@ -43,6 +43,9 @@ const SignUpForm: FC = ({}) => {
       setTokens('refresh-token', res.refreshToken, {
         expires: new Date(res.refreshTokenExpiresAt),
       });
+      setTokens('user', res.user, {
+        expires: new Date(res.refreshTokenExpiresAt),
+      });
     } catch (err: any) {
       if (err.data.message === 'Email taken') {
         form.setError('email', { type: 'custom', message: err.data.message });

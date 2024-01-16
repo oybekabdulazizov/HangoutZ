@@ -36,6 +36,9 @@ const LogInForm: FC = ({}) => {
       setTokens('refresh-token', res.refreshToken, {
         expires: new Date(res.refreshTokenExpiresAt),
       });
+      setTokens('user', res.user, {
+        expires: new Date(res.refreshTokenExpiresAt),
+      });
     } catch (err: any) {
       console.log(err);
     }
