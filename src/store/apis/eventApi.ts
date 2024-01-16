@@ -9,6 +9,14 @@ const eventApi = createApi({
   }),
   endpoints: (builder) => {
     return {
+      getEvents: builder.query({
+        query: (_arg) => {
+          return {
+            url: '/events',
+            method: 'GET',
+          };
+        },
+      }),
       getEvent: builder.query({
         query: (eventId) => {
           return {
@@ -23,4 +31,4 @@ const eventApi = createApi({
 
 export { eventApi };
 
-export const { useGetEventQuery } = eventApi;
+export const { useGetEventsQuery, useGetEventQuery } = eventApi;

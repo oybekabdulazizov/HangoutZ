@@ -31,4 +31,4 @@ export {
 
 export { useGetCategoriesQuery } from './apis/categoryApi';
 
-export { useGetEventQuery } from './apis/eventApi';
+export { useGetEventsQuery, useGetEventQuery } from './apis/eventApi';

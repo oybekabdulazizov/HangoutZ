@@ -106,6 +106,10 @@
     @apply font-bold text-[24px] leading-[32px] md:text-[28px] md:leading-[40px];
   }
 
+  .h5-bold {
+    @apply font-bold text-[28px] leading-[36px];
+  }
+
   /* paragraph text */
   .p-regular-24 {
     @apply font-normal text-[24px] leading-[36px];
