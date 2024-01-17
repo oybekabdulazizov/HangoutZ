@@ -19,10 +19,13 @@ import { signupInitialValues } from '@/lib/constants';
 import { signupFormSchema } from '@/lib/schemas';
 import { calendarIcon } from '@/assets/icons';
 import toast from 'react-hot-toast';
+import { useLocation, useNavigate } from 'react-router';
 
 const SignUpForm: FC = ({}) => {
   const [signUp] = useSignUpMutation();
   const { setTokens } = useTokens();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const form = useForm<z.infer<typeof signupFormSchema>>({
     resolver: zodResolver(signupFormSchema),
@@ -47,6 +50,7 @@ const SignUpForm: FC = ({}) => {
       setTokens('user', res.user, {
         expires: new Date(res.refreshTokenExpiresAt),
       });
+      navigate(location.state.from || '/');
     } catch (err: any) {
       if (err.data.message === 'Email taken') {
         form.setError('email', { type: 'custom', message: err.data.message });

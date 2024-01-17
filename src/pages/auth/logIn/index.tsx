@@ -1,9 +1,11 @@
 import { FC } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 import LogInForm from './LogInForm';
 
 const LogIn: FC = ({}) => {
+  const location = useLocation();
+
   return (
     <div
       className='bg-primary-50 bg-dotted-pattern bg-cover bg-fixed bg-center 
@@ -18,7 +20,12 @@ const LogIn: FC = ({}) => {
 
         <div className='flex flex-row gap-2'>
           <p>Not have an account?</p>
-          <Link to='/auth/sign-up' className='text-primary-500'>
+          <Link
+            to='/auth/sign-up'
+            className='text-primary-500'
+            replace={true}
+            state={{ from: location }}
+          >
             Sign up
           </Link>
         </div>
