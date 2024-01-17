@@ -1,4 +1,5 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
+import toast from 'react-hot-toast';
 
 import Hero from '@/components/shared/Hero';
 import Collection from '@/components/shared/collection/Collection';
@@ -6,9 +7,15 @@ import { useGetEventsQuery } from '@/store';
 import Loading from '@/components/shared/Loading';
 
 const Home: FC = ({}) => {
-  const { data, isLoading } = useGetEventsQuery('');
+  const { data, isLoading, isError } = useGetEventsQuery('');
 
-  console.log(data);
+  useEffect(() => {
+    if (isError) {
+      toast.error('Error occurred in Events page', {
+        icon: '❌',
+      });
+    }
+  }, [isError]);
 
   return (
     <div>

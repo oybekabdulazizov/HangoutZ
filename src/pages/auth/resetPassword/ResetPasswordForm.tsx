@@ -16,6 +16,7 @@ import useTokens from '@/hooks/useTokens';
 import { useResetPasswordMutation } from '@/store';
 import { resetPasswordInitialValues } from '@/lib/constants';
 import { resetPasswordFormSchema } from '@/lib/schemas';
+import toast from 'react-hot-toast';
 
 const ResetPasswordForm: FC = ({}) => {
   const [resetPassword] = useResetPasswordMutation();
@@ -34,7 +35,9 @@ const ResetPasswordForm: FC = ({}) => {
       removeTokens('refresh-token');
       removeTokens('user');
     } catch (err: any) {
-      console.log('caught error: ');
+      toast.error('Error occurred in Reset Password page', {
+        icon: '❌',
+      });
       console.log(err);
       return;
     }

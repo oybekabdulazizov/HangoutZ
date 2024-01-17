@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import DatePicker from 'react-datepicker';
+import toast from 'react-hot-toast';
 
 import 'react-datepicker/dist/react-datepicker.css';
 
@@ -76,6 +77,15 @@ const EventForm: React.FC<IEventForm> = ({ event, actionType }) => {
       console.log(res);
       if (res.status === 201) form.reset();
     } catch (err: any) {
+      if (err.response && err.response.status === 401) {
+        toast.error('Please log in to proceed', {
+          icon: '❌',
+        });
+      } else {
+        toast.error('Error occurred while saving the event', {
+          icon: '❌',
+        });
+      }
       console.log(err);
     }
   };

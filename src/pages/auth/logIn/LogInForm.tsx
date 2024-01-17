@@ -16,6 +16,7 @@ import { useLogInMutation } from '@/store';
 import useTokens from '@/hooks/useTokens';
 import { loginInitialValue } from '@/lib/constants';
 import { loginFormSchema } from '@/lib/schemas';
+import toast from 'react-hot-toast';
 
 const LogInForm: FC = ({}) => {
   const [logIn] = useLogInMutation();
@@ -40,6 +41,9 @@ const LogInForm: FC = ({}) => {
         expires: new Date(res.refreshTokenExpiresAt),
       });
     } catch (err: any) {
+      toast.error('Error occurred in Log In page', {
+        icon: '❌',
+      });
       console.log(err);
     }
   };

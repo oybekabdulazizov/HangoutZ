@@ -4,11 +4,21 @@ import { useGetEventQuery } from '@/store';
 import { IEvent } from '@/lib/interfaces';
 import EventForm from '@/components/shared/eventForm/EventForm';
 import Loading from '@/components/shared/Loading';
+import { useEffect } from 'react';
+import toast from 'react-hot-toast';
 
 const EditEvent: React.FC = ({}) => {
   const { id } = useParams();
-  const { data, isLoading } = useGetEventQuery(id);
+  const { data, isLoading, isError } = useGetEventQuery(id);
   const event: IEvent = data;
+
+  useEffect(() => {
+    if (isError) {
+      toast.error('Error occurred in Event Edit page', {
+        icon: '❌',
+      });
+    }
+  }, [isError]);
 
   return (
     <>

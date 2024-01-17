@@ -18,6 +18,7 @@ import useTokens from '@/hooks/useTokens';
 import { signupInitialValues } from '@/lib/constants';
 import { signupFormSchema } from '@/lib/schemas';
 import { calendarIcon } from '@/assets/icons';
+import toast from 'react-hot-toast';
 
 const SignUpForm: FC = ({}) => {
   const [signUp] = useSignUpMutation();
@@ -50,6 +51,9 @@ const SignUpForm: FC = ({}) => {
       if (err.data.message === 'Email taken') {
         form.setError('email', { type: 'custom', message: err.data.message });
       } else {
+        toast.error('Error occurred in Sign Up page', {
+          icon: '❌',
+        });
         console.log(err);
       }
     }

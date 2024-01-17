@@ -1,4 +1,6 @@
 import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
+import toast from 'react-hot-toast';
 
 import { calendarIcon, locationOrangeIcon } from '@/assets/icons';
 import { useGetEventQuery } from '@/store';
@@ -6,7 +8,16 @@ import Loading from '@/components/shared/Loading';
 
 const EventDetails: React.FC = ({}) => {
   const { id } = useParams();
-  const { data, isLoading } = useGetEventQuery(id);
+  const { data, isLoading, isError } = useGetEventQuery(id);
+
+  useEffect(() => {
+    if (isError) {
+      toast.error('Error occurred in Event Details page', {
+        icon: '❌',
+      });
+    }
+  }, [isError]);
+
   console.log(data);
   return (
     <>
