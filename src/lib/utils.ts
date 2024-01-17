@@ -12,7 +12,6 @@ export const uploadImage = async (files: File[]): Promise<string> => {
     const formData = new FormData();
     formData.append('file', files[0]);
     formData.append('upload_preset', 'hangoutz_preset');
-    console.log(import.meta.env.VITE_CLOUDINARY_NAME);
     try {
       const data = await fetch(
         `https://api.cloudinary.com/v1_1/${

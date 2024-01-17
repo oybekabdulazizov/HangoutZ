@@ -72,11 +72,9 @@ const EventForm: React.FC<IEventForm> = ({ event, actionType }) => {
       finishDateTime: finishDateTime.toISOString(),
     };
     try {
-      console.log(eventToBeSaved);
       const res = event
         ? await axiosPrivate.put(`/events/${event.id}`, eventToBeSaved)
         : await axiosPrivate.post('/events', eventToBeSaved);
-      console.log(res);
       if (res.status === 201) form.reset();
       navigate(`/events/${res.data.id}`);
     } catch (err: any) {

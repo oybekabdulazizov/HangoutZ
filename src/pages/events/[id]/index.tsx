@@ -18,7 +18,6 @@ const EventDetails: React.FC = ({}) => {
     }
   }, [isError]);
 
-  console.log(data);
   return (
     <>
       {isLoading && (
