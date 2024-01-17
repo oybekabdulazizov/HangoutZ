@@ -2,6 +2,7 @@ import { FC } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
+import { useLocation, useNavigate } from 'react-router';
 
 import {
   Form,
@@ -21,6 +22,8 @@ import toast from 'react-hot-toast';
 const LogInForm: FC = ({}) => {
   const [logIn] = useLogInMutation();
   const { setTokens } = useTokens();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const form = useForm<z.infer<typeof loginFormSchema>>({
     resolver: zodResolver(loginFormSchema),
@@ -40,6 +43,7 @@ const LogInForm: FC = ({}) => {
       setTokens('user', res.user, {
         expires: new Date(res.refreshTokenExpiresAt),
       });
+      navigate(location.state.from || '/');
     } catch (err: any) {
       toast.error('Error occurred in Log In page', {
         icon: '❌',
