@@ -2,11 +2,22 @@ import { Link } from 'react-router-dom';
 
 import ICard from './ICard';
 import useTokens from '@/hooks/useTokens';
-import { editIcon } from '@/assets/icons';
+import { deleteIcon, editIcon } from '@/assets/icons';
+import AlertDialogPopup from '../alertDialogPopup/AlertDialogPopup';
+import useAxiosPrivate from '@/hooks/useAxiosPrivate';
 
 const Card: React.FC<ICard> = ({ event }) => {
   const { tokens } = useTokens();
   const isEventCreator = tokens.user.id === event.host.id;
+  const { axiosPrivate } = useAxiosPrivate();
+
+  const deleteEvent = async () => {
+    try {
+      await axiosPrivate.delete(`/events/${event.id}`);
+    } catch (err: any) {
+      console.log(err);
+    }
+  };
 
   return (
     <div className='group relative min-h-[380px] w-full max-w-[400px] flex flex-col overflow-hidden rounded-xl bg-white shadow-md transition-all hover:shadow-lg md:min-h-[438px]'>
@@ -20,6 +31,12 @@ const Card: React.FC<ICard> = ({ event }) => {
           <Link to={`/events/${event.id}/edit`}>
             <img src={editIcon} width={20} height={20} alt='edit' />
           </Link>
+          <AlertDialogPopup
+            toggler={<img src={deleteIcon} alt='delete' />}
+            title={'Are you sure you want to delete?'}
+            action={'Delete'}
+            handleClick={deleteEvent}
+          />
         </div>
       )}
       <Link
