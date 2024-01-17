@@ -3,6 +3,7 @@ import { FC } from 'react';
 import Hero from '@/components/shared/Hero';
 import Collection from '@/components/shared/collection/Collection';
 import { useGetEventsQuery } from '@/store';
+import Loading from '@/components/shared/Loading';
 
 const Home: FC = ({}) => {
   const { data, isLoading } = useGetEventsQuery('');
@@ -12,7 +13,7 @@ const Home: FC = ({}) => {
   return (
     <div>
       <Hero />
-      {isLoading && <p>Loading events...</p>}
+      {isLoading && <Loading size={'responsive'} />}
       {data && (
         <Collection
           data={data}

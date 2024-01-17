@@ -2,15 +2,19 @@ import { useParams } from 'react-router-dom';
 
 import { calendarIcon, locationOrangeIcon } from '@/assets/icons';
 import { useGetEventQuery } from '@/store';
+import Loading from '@/components/shared/Loading';
 
 const EventDetails: React.FC = ({}) => {
   const { id } = useParams();
-  const { data, isLoading, isError } = useGetEventQuery(id);
+  const { data, isLoading } = useGetEventQuery(id);
   console.log(data);
   return (
-    <div>
-      {isLoading && <p>Loading...</p>}
-      {isError && <h2 className='text-2xl text-red-500'>Error occurred!</h2>}
+    <>
+      {isLoading && (
+        <div className='mt-auto'>
+          <Loading size='responsive' />
+        </div>
+      )}
       {data && (
         <div className='flex justify-center bg-primary-50 bg-dotted-pattern bg-containt'>
           <div className='grid grid-cols-1 md:grid-cols-2 2xl:max-w-7xl'>
@@ -79,7 +83,7 @@ const EventDetails: React.FC = ({}) => {
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 };
 

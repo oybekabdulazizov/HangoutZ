@@ -5,7 +5,6 @@ const Collection: React.FC<ICollection> = ({
   data,
   emptyTitle,
   emptyStateSubtext,
-  collectionType
 }) => {
   return (
     <>
