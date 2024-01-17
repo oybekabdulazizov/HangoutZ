@@ -1,11 +1,12 @@
-import { useGetEventQuery } from '@/store';
 import { useParams } from 'react-router-dom';
-import EditEventForm from './EditEventForm';
+
+import { useGetEventQuery } from '@/store';
 import { IEvent } from '@/lib/interfaces';
+import EventForm from '@/components/shared/eventForm/EventForm';
 
 const EditEvent: React.FC = ({}) => {
   const { id } = useParams();
-  const { data, isLoading, isError } = useGetEventQuery(id);
+  const { data, isLoading } = useGetEventQuery(id);
   const event: IEvent = data;
 
   return (
@@ -19,7 +20,7 @@ const EditEvent: React.FC = ({}) => {
             </h3>
           </div>
           <div className='wrapper md:mt-2 md:mb-4 my-2 min-h-full'>
-            <EditEventForm event={event} />
+            <EventForm event={event} actionType='edit' />
           </div>
         </>
       )}

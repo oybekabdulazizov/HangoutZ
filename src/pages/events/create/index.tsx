@@ -1,5 +1,6 @@
 import { FC } from 'react';
-import CreateEventForm from './CreateEventForm';
+
+import EventForm from '@/components/shared/eventForm/EventForm';
 
 const CreateEvent: FC = ({}) => {
   return (
@@ -10,7 +11,7 @@ const CreateEvent: FC = ({}) => {
         </h3>
       </div>
       <div className='wrapper md:mt-2 md:mb-4 my-2 min-h-full'>
-        <CreateEventForm />
+        <EventForm actionType={'create'} />
       </div>
     </>
   );

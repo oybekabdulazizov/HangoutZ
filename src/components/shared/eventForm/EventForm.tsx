@@ -4,6 +4,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import DatePicker from 'react-datepicker';
 
+import 'react-datepicker/dist/react-datepicker.css';
+
 import {
   Form,
   FormControl,
@@ -22,19 +24,19 @@ import FileUploader from '@/components/shared/fileUploader/FileUploader';
 import AddressAutoFill from '@/components/shared/addressAutoFill/AddressAutoFill';
 import { calendarIcon, urlIcon } from '@/assets/icons';
 import { Button } from '@/components/ui/button';
-import IEditEventForm from './IEditEventForm';
+import IEventForm from './IEventForm';
 
-const EditEventForm: React.FC<IEditEventForm> = ({ event }) => {
+const EventForm: React.FC<IEventForm> = ({ event, actionType }) => {
   const { axiosPrivate } = useAxiosPrivate();
   const [files, setFiles] = useState<File[]>([]);
-  const [location, setLocation] = useState<string>(event.location);
+  const [location, setLocation] = useState<string>(event?.location || '');
 
   const defaultValues: typeof newEventInitialValues = event
     ? {
-        title: event.title || '',
-        description: event.description || '',
-        location: event.location || '',
-        category: event.category.id || '',
+        title: event.title,
+        description: event.description,
+        location: event.location,
+        category: event.category.id,
         startDateTime: new Date(event.startDateTime),
         finishDateTime: new Date(event.finishDateTime),
         url: event.url || '',
@@ -50,18 +52,16 @@ const EditEventForm: React.FC<IEditEventForm> = ({ event }) => {
   const onSubmit = async (values: z.infer<typeof eventSchema>) => {
     const { startDateTime, finishDateTime } = values;
     startDateTime.setMinutes(
-      values.startDateTime.getMinutes() -
-        values.startDateTime.getTimezoneOffset()
+      startDateTime.getMinutes() - startDateTime.getTimezoneOffset()
     );
     finishDateTime.setMinutes(
-      values.finishDateTime.getMinutes() -
-        values.finishDateTime.getTimezoneOffset()
+      finishDateTime.getMinutes() - finishDateTime.getTimezoneOffset()
     );
     const thumbnailUrl =
       files && files.length > 0
         ? await uploadImage(files)
         : values.thumbnailUrl;
-    const updatedEvent = {
+    const eventToBeSaved = {
       ...values,
       thumbnailUrl,
       location,
@@ -69,8 +69,12 @@ const EditEventForm: React.FC<IEditEventForm> = ({ event }) => {
       finishDateTime: finishDateTime.toISOString(),
     };
     try {
-      const res = await axiosPrivate.put(`/events/${event.id}`, updatedEvent);
-      if (res.status === 200) form.reset();
+      console.log(eventToBeSaved);
+      const res = event
+        ? await axiosPrivate.put(`/events/${event.id}`, eventToBeSaved)
+        : await axiosPrivate.post('/events', eventToBeSaved);
+      console.log(res);
+      if (res.status === 201) form.reset();
     } catch (err: any) {
       console.log(err);
     }
@@ -263,12 +267,20 @@ const EditEventForm: React.FC<IEditEventForm> = ({ event }) => {
           />
         </div>
 
-        <Button type='submit' className='button col-span-2 w-full'>
-          Save
+        <Button
+          type='submit'
+          className='button col-span-2 w-full'
+          disabled={form.formState.isSubmitting}
+        >
+          {form.formState.isSubmitting ? (
+            <>{actionType === 'create' ? 'Creating...' : 'Saving...'}</>
+          ) : (
+            <>{actionType === 'create' ? 'Create' : 'Save'}</>
+          )}
         </Button>
       </form>
     </Form>
   );
 };
 
-export default EditEventForm;
+export default EventForm;
