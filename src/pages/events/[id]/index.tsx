@@ -1,14 +1,27 @@
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import toast from 'react-hot-toast';
 
-import { calendarIcon, locationOrangeIcon } from '@/assets/icons';
+import {
+  calendarIcon,
+  deleteIcon,
+  editIcon,
+  locationOrangeIcon,
+} from '@/assets/icons';
 import { useGetEventQuery } from '@/store';
 import Loading from '@/components/shared/Loading';
+import useTokens from '@/hooks/useTokens';
+import AlertDialogPopup from '@/components/shared/alertDialogPopup/AlertDialogPopup';
+import useAxiosPrivate from '@/hooks/useAxiosPrivate';
 
 const EventDetails: React.FC = ({}) => {
   const { id } = useParams();
   const { data, isLoading, isError } = useGetEventQuery(id);
+  const { tokens } = useTokens();
+  const { axiosPrivate } = useAxiosPrivate();
+  const isEventCreator = tokens.user
+    ? tokens.user.id === data?.host?.id
+    : false;
 
   useEffect(() => {
     if (isError) {
@@ -18,6 +31,14 @@ const EventDetails: React.FC = ({}) => {
     }
   }, [isError]);
 
+  const deleteEvent = async () => {
+    try {
+      await axiosPrivate.delete(`/delete/${data?.id}`);
+    } catch (err: any) {
+      console.log(err);
+    }
+  };
+
   return (
     <>
       {isLoading && (
@@ -26,15 +47,30 @@ const EventDetails: React.FC = ({}) => {
         </div>
       )}
       {data && (
-        <div className='flex justify-center bg-primary-50 bg-dotted-pattern bg-containt'>
+        <div className='flex justify-center bg-primary-50 bg-dotted-pattern bg-contain'>
           <div className='grid grid-cols-1 md:grid-cols-2 2xl:max-w-7xl'>
-            <img
-              width={1000}
-              height={1000}
-              src={data.thumbnailUrl}
-              className='h-full min-h-[300px] object-cover object-center'
-              alt='event thumbnail'
-            />
+            <div className='relative grid grid-cols-1 w-full'>
+              <img
+                width={1000}
+                height={1000}
+                src={data.thumbnailUrl}
+                className='h-full min-h-[400px] object-cover object-center'
+                alt='event thumbnail'
+              />
+              {isEventCreator && (
+                <div className='absolute right-2 top-2 flex flex-col gap-4 rounded-xl bg-white p-2 shadow-sm transition-all'>
+                  <Link to={`/events/${id}/edit`}>
+                    <img src={editIcon} width={20} height={20} alt='edit' />
+                  </Link>
+                  <AlertDialogPopup
+                    toggler={<img src={deleteIcon} alt='delete' />}
+                    title={'Are you sure you want to delete this event?'}
+                    action={'Delete'}
+                    handleClick={deleteEvent}
+                  />
+                </div>
+              )}
+            </div>
 
             <div className='flex w-full flex-col gap-5 p-5 md:px-8 md:py-6'>
               <div className='flex flex-col gap-4'>
