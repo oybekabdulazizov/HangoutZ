@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom';
 
-import ICard from './ICard';
 import useTokens from '@/hooks/useTokens';
 import { deleteIcon, editIcon } from '@/assets/icons';
 import AlertDialogPopup from '../alertDialogPopup/AlertDialogPopup';
 import useAxiosPrivate from '@/hooks/useAxiosPrivate';
+import IEventCard from './IEventCard';
 
-const Card: React.FC<ICard> = ({ event }) => {
+const EventCard: React.FC<IEventCard> = ({ event }) => {
   const { tokens } = useTokens();
   const isEventCreator = tokens.user.id === event.host.id;
   const { axiosPrivate } = useAxiosPrivate();
@@ -67,4 +67,4 @@ const Card: React.FC<ICard> = ({ event }) => {
   );
 };
 
-export default Card;
+export default EventCard;

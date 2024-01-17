@@ -1,4 +1,4 @@
-import Card from '../card/Card';
+import EventCard from '../card/EventCard';
 import ICollection from './ICollection';
 
 const Collection: React.FC<ICollection> = ({
@@ -16,7 +16,7 @@ const Collection: React.FC<ICollection> = ({
               {data.map((event) => {
                 return (
                   <li key={event.id}>
-                    <Card event={event} />
+                    <EventCard event={event} />
                   </li>
                 );
               })}
