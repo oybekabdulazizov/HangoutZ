@@ -26,11 +26,13 @@ import AddressAutoFill from '@/components/shared/addressAutoFill/AddressAutoFill
 import { calendarIcon, urlIcon } from '@/assets/icons';
 import { Button } from '@/components/ui/button';
 import IEventForm from './IEventForm';
+import { useNavigate } from 'react-router';
 
 const EventForm: React.FC<IEventForm> = ({ event, actionType }) => {
   const { axiosPrivate } = useAxiosPrivate();
   const [files, setFiles] = useState<File[]>([]);
   const [location, setLocation] = useState<string>(event?.location || '');
+  const navigate = useNavigate();
 
   const defaultValues: typeof newEventInitialValues = event
     ? {
@@ -81,6 +83,7 @@ const EventForm: React.FC<IEventForm> = ({ event, actionType }) => {
         toast.error('Please log in to proceed', {
           icon: '❌',
         });
+        navigate('/log-in', { state: { from: location }, replace: true });
       } else {
         toast.error('Error occurred while saving the event', {
           icon: '❌',
