@@ -9,9 +9,20 @@ import {
 import IDropdown from './ICategoryDropdown';
 import { ICategory } from '@/lib/interfaces';
 import Loading from '../Loading';
+import { useEffect } from 'react';
+import toast from 'react-hot-toast';
 
 const CategoryDropdown: React.FC<IDropdown> = ({ value, onChangeHandler }) => {
-  const { data, isLoading } = useGetCategoriesQuery('');
+  const { data, isLoading, isError } = useGetCategoriesQuery('');
+
+  useEffect(() => {
+    if (isError) {
+      toast.error('Error occurred while fetching categories', {
+        icon: '❌',
+      });
+    }
+  }, [isError]);
+
   return (
     <Select onValueChange={onChangeHandler} defaultValue={value}>
       <SelectTrigger className='select-field '>

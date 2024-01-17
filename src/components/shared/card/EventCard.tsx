@@ -8,7 +8,7 @@ import IEventCard from './IEventCard';
 
 const EventCard: React.FC<IEventCard> = ({ event }) => {
   const { tokens } = useTokens();
-  const isEventCreator = tokens.user.id === event.host.id;
+  const isEventCreator = tokens.user ? tokens.user.id === event.host.id : false;
   const { axiosPrivate } = useAxiosPrivate();
 
   const deleteEvent = async () => {
