@@ -78,6 +78,7 @@ const EventForm: React.FC<IEventForm> = ({ event, actionType }) => {
         : await axiosPrivate.post('/events', eventToBeSaved);
       console.log(res);
       if (res.status === 201) form.reset();
+      navigate(`/events/${res.data.id}`);
     } catch (err: any) {
       if (err.response && err.response.status === 401) {
         toast.error('Please log in to proceed', {
