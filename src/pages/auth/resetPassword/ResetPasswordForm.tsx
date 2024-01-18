@@ -31,8 +31,8 @@ const ResetPasswordForm: FC = ({}) => {
     try {
       await resetPassword(values).unwrap();
       form.reset();
-      removeTokens('session-token');
-      removeTokens('refresh-token');
+      removeTokens('sessionToken');
+      removeTokens('refreshToken');
       removeTokens('user');
     } catch (err: any) {
       toast.error('Error occurred in Reset Password page', {

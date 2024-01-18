@@ -12,8 +12,8 @@ const Navbar: FC = ({}) => {
   const handleLogout = async () => {
     try {
       await axiosPrivate.get('/auth/log-out');
-      removeTokens('session-token');
-      removeTokens('refresh-token');
+      removeTokens('sessionToken');
+      removeTokens('refreshToken');
       removeTokens('user');
     } catch (err: any) {
       console.log(err);

@@ -6,10 +6,10 @@ const useRefreshSessionToken = () => {
 
   return async () => {
     const { data } = await axiosPublic.get('/auth/refresh-session-token', {
-      headers: { Authorization: `Bearer ${tokens['refresh-token']}` },
+      headers: { Authorization: `Bearer ${tokens.refreshToken}` },
     });
     const { sessionToken, sessionTokenExpiresAt } = await data;
-    setTokens('session-token', sessionToken, {
+    setTokens('sessionToken', sessionToken, {
       expires: new Date(sessionTokenExpiresAt),
     });
     return sessionToken;

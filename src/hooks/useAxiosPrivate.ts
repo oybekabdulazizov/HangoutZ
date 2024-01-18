@@ -13,7 +13,7 @@ const useAxiosPrivate = () => {
     const requestInterceptor = axiosPrivate.interceptors.request.use(
       (config) => {
         if (!config.headers[AUTHORIZATION]) {
-          config.headers[AUTHORIZATION] = `Bearer ${tokens['session-token']}`;
+          config.headers[AUTHORIZATION] = `Bearer ${tokens.sessionToken}`;
         }
         return config;
       },

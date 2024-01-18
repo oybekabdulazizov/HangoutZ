@@ -1,4 +1,4 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { Action, ThunkAction, configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/query';
 
 import { authApi } from './apis/authApi';
@@ -32,3 +32,12 @@ export {
 export { useGetCategoriesQuery } from './apis/categoryApi';
 
 export { useGetEventsQuery, useGetEventQuery } from './apis/eventApi';
+
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
+export type AppThunk<ReturnType = void> = ThunkAction<
+  ReturnType,
+  RootState,
+  unknown,
+  Action<string>
+>;

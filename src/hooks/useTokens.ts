@@ -2,8 +2,8 @@ import { useCookies } from 'react-cookie';
 
 const useTokens = () => {
   const [tokens, setTokens, removeTokens] = useCookies([
-    'session-token',
-    'refresh-token',
+    'sessionToken',
+    'refreshToken',
     'user',
   ]);
 

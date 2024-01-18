@@ -34,10 +34,10 @@ const LogInForm: FC = ({}) => {
     try {
       const res = await logIn(values).unwrap();
       if (res.status !== 400) form.reset();
-      setTokens('session-token', res.sessionToken, {
+      setTokens('sessionToken', res.sessionToken, {
         expires: new Date(res.sessionTokenExpiresAt),
       });
-      setTokens('refresh-token', res.refreshToken, {
+      setTokens('refreshToken', res.refreshToken, {
         expires: new Date(res.refreshTokenExpiresAt),
       });
       setTokens('user', res.user, {
