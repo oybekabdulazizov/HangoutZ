@@ -5,7 +5,6 @@ import * as z from 'zod';
 import DatePicker from 'react-datepicker';
 import toast from 'react-hot-toast';
 import { useLocation, useNavigate } from 'react-router';
-import Cookies from 'js-cookie';
 
 import {
   Form,
@@ -20,6 +19,7 @@ import { useSignUpMutation } from '@/store';
 import { signupInitialValues } from '@/lib/constants';
 import { signupFormSchema } from '@/lib/schemas';
 import { calendarIcon } from '@/assets/icons';
+import { saveToCookie } from '@/lib/utils';
 
 const SignUpForm: FC = ({}) => {
   const [signUp] = useSignUpMutation();
@@ -40,15 +40,7 @@ const SignUpForm: FC = ({}) => {
       };
       const res = await signUp(newUser).unwrap();
       form.reset();
-      Cookies.set('sessionToken', res.sessionToken, {
-        expires: new Date(res.sessionTokenExpiresAt),
-      });
-      Cookies.set('refreshToken', res.refreshToken, {
-        expires: new Date(res.refreshTokenExpiresAt),
-      });
-      Cookies.set('user', JSON.stringify(res.user), {
-        expires: new Date(res.refreshTokenExpiresAt),
-      });
+      saveToCookie(res);
       navigate(location.state.from || '/');
     } catch (err: any) {
       if (err.data.message === 'Email taken') {

@@ -1,5 +1,8 @@
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
+import Cookies from 'js-cookie';
+
+import { IAuth_Response } from './interfaces';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -28,4 +31,22 @@ export const uploadImage = async (files: File[]): Promise<string> => {
     }
   }
   return '';
+};
+
+export const saveToCookie = (res: IAuth_Response) => {
+  Cookies.set('sessionToken', res.sessionToken, {
+    expires: new Date(res.sessionTokenExpiresAt),
+  });
+  Cookies.set('refreshToken', res.refreshToken, {
+    expires: new Date(res.refreshTokenExpiresAt),
+  });
+  Cookies.set('user', JSON.stringify(res.user), {
+    expires: new Date(res.refreshTokenExpiresAt),
+  });
+};
+
+export const clearCookie = () => {
+  Cookies.remove('sessionToken');
+  Cookies.remove('refreshToken');
+  Cookies.remove('user');
 };

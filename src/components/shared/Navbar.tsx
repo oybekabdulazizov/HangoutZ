@@ -1,9 +1,9 @@
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
-import Cookies from 'js-cookie';
 
 import { Button } from '@/components/ui/button';
 import { useLogOutMutation } from '@/store';
+import { clearCookie } from '@/lib/utils';
 
 const Navbar: FC = ({}) => {
   const [logOut] = useLogOutMutation();
@@ -11,9 +11,7 @@ const Navbar: FC = ({}) => {
   const handleLogout = async () => {
     try {
       await logOut().unwrap();
-      Cookies.remove('sessionToken');
-      Cookies.remove('refreshToken');
-      Cookies.remove('user');
+      clearCookie();
     } catch (err: any) {
       console.log(err);
     }

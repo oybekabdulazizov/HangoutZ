@@ -3,7 +3,6 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import toast from 'react-hot-toast';
-import Cookies from 'js-cookie';
 
 import {
   Form,
@@ -17,6 +16,7 @@ import { Button } from '@/components/ui/button';
 import { useResetPasswordMutation } from '@/store';
 import { resetPasswordInitialValues } from '@/lib/constants';
 import { resetPasswordFormSchema } from '@/lib/schemas';
+import { clearCookie } from '@/lib/utils';
 
 const ResetPasswordForm: FC = ({}) => {
   const [resetPassword] = useResetPasswordMutation();
@@ -30,9 +30,7 @@ const ResetPasswordForm: FC = ({}) => {
     try {
       await resetPassword(values).unwrap();
       form.reset();
-      Cookies.remove('sessionToken');
-      Cookies.remove('refreshToken');
-      Cookies.remove('user');
+      clearCookie();
     } catch (err: any) {
       toast.error('Error occurred in Reset Password page', {
         icon: '❌',

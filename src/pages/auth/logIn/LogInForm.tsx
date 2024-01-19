@@ -3,7 +3,6 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { useLocation, useNavigate } from 'react-router';
-import Cookies from 'js-cookie';
 import toast from 'react-hot-toast';
 
 import {
@@ -18,6 +17,7 @@ import { Button } from '@/components/ui/button';
 import { useLogInMutation } from '@/store';
 import { loginInitialValue } from '@/lib/constants';
 import { loginFormSchema } from '@/lib/schemas';
+import { saveToCookie } from '@/lib/utils';
 
 const LogInForm: FC = ({}) => {
   const [logIn] = useLogInMutation();
@@ -33,15 +33,7 @@ const LogInForm: FC = ({}) => {
     try {
       const res = await logIn(values).unwrap();
       form.reset();
-      Cookies.set('sessionToken', res.sessionToken, {
-        expires: new Date(res.sessionTokenExpiresAt),
-      });
-      Cookies.set('refreshToken', res.refreshToken, {
-        expires: new Date(res.refreshTokenExpiresAt),
-      });
-      Cookies.set('user', JSON.stringify(res.user), {
-        expires: new Date(res.refreshTokenExpiresAt),
-      });
+      saveToCookie(res);
       navigate(location.state.from || '/');
     } catch (err: any) {
       toast.error('Error occurred in Log In page', {
