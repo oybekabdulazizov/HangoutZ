@@ -6,7 +6,7 @@ import {
 } from '@reduxjs/toolkit/query';
 import Cookies from 'js-cookie';
 
-import { BASE_URL } from '@/lib/api/axiosApi';
+import { BASE_URL } from '@/lib/utils';
 
 const baseQuery = fetchBaseQuery({
   baseUrl: `${BASE_URL}`,

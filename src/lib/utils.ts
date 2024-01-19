@@ -1,12 +1,18 @@
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import Cookies from 'js-cookie';
+import axios from 'axios';
 
 import { IAuth_Response } from './interfaces';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
+
+export const BASE_URL = 'http://localhost:8080/api/v1';
+axios.defaults.baseURL = BASE_URL;
+axios.defaults.withCredentials = true;
+axios.defaults.headers.common['Content-Type'] = 'application/json';
 
 export const convertFileToUrl = (file: File) => URL.createObjectURL(file);
 
