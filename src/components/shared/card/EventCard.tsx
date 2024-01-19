@@ -1,24 +1,24 @@
 import { Link } from 'react-router-dom';
 import Cookies from 'js-cookie';
+import { useState } from 'react';
 
 import { deleteIcon, editIcon } from '@/assets/icons';
 import AlertDialogPopup from '../alertDialogPopup/AlertDialogPopup';
-import useAxiosPrivate from '@/hooks/useAxiosPrivate';
 import IEventCard from './IEventCard';
-import { useState } from 'react';
 import { IUser_Simple } from '@/lib/interfaces';
+import { useDeleteEventMutation } from '@/store';
 
 const EventCard: React.FC<IEventCard> = ({ event }) => {
+  const [deleteEvent] = useDeleteEventMutation();
   const [currentUser, _setCurrentUser] = useState<IUser_Simple | null>(() => {
     const sessionUser = Cookies.get('user');
     return sessionUser ? JSON.parse(sessionUser) : null;
   });
   const isEventCreator = currentUser ? currentUser.id === event.host.id : false;
-  const { axiosPrivate } = useAxiosPrivate();
 
-  const deleteEvent = async () => {
+  const handleDeleteClick = async () => {
     try {
-      await axiosPrivate.delete(`/events/${event.id}`);
+      await deleteEvent({ id: event.id });
     } catch (err: any) {
       console.log(err);
     }
@@ -40,7 +40,7 @@ const EventCard: React.FC<IEventCard> = ({ event }) => {
             toggler={<img src={deleteIcon} alt='delete' />}
             title={'Are you sure you want to delete?'}
             action={'Delete'}
-            handleClick={deleteEvent}
+            handleClick={handleDeleteClick}
           />
         </div>
       )}

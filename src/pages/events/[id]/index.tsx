@@ -9,23 +9,22 @@ import {
   editIcon,
   locationOrangeIcon,
 } from '@/assets/icons';
-import { useGetEventQuery } from '@/store';
+import { useDeleteEventMutation, useGetEventQuery } from '@/store';
 import Loading from '@/components/shared/Loading';
 import AlertDialogPopup from '@/components/shared/alertDialogPopup/AlertDialogPopup';
-import useAxiosPrivate from '@/hooks/useAxiosPrivate';
 import { IUser_Simple } from '@/lib/interfaces';
 
 const EventDetails: React.FC = ({}) => {
+  const { id } = useParams();
+  const { data: event, isLoading, isError } = useGetEventQuery({ id: id! });
+  const [deleteEvent] = useDeleteEventMutation();
+
   const [currentUser, _setCurrentUser] = useState<IUser_Simple | null>(() => {
     const sessionUser = Cookies.get('user');
     return sessionUser ? JSON.parse(sessionUser) : null;
   });
-  const { id } = useParams();
-  const { data, isLoading, isError } = useGetEventQuery(id);
-  const { axiosPrivate } = useAxiosPrivate();
-
   const isEventCreator = currentUser
-    ? currentUser.id === data?.host?.id
+    ? currentUser.id === event?.host.id
     : false;
 
   useEffect(() => {
@@ -36,9 +35,9 @@ const EventDetails: React.FC = ({}) => {
     }
   }, [isError]);
 
-  const deleteEvent = async () => {
+  const handleDeleteClick = async () => {
     try {
-      await axiosPrivate.delete(`/delete/${data?.id}`);
+      await deleteEvent({ id: event?.id! });
     } catch (err: any) {
       console.log(err);
     }
@@ -51,14 +50,14 @@ const EventDetails: React.FC = ({}) => {
           <Loading size='responsive' />
         </div>
       )}
-      {data && (
+      {event && (
         <div className='flex justify-center bg-primary-50 bg-dotted-pattern bg-contain'>
           <div className='grid grid-cols-1 md:grid-cols-2 2xl:max-w-7xl'>
             <div className='relative grid grid-cols-1 w-full'>
               <img
                 width={1000}
                 height={1000}
-                src={data.thumbnailUrl}
+                src={event.thumbnailUrl}
                 className='h-full min-h-[400px] object-cover object-center'
                 alt='event thumbnail'
               />
@@ -71,7 +70,7 @@ const EventDetails: React.FC = ({}) => {
                     toggler={<img src={deleteIcon} alt='delete' />}
                     title={'Are you sure you want to delete this event?'}
                     action={'Delete'}
-                    handleClick={deleteEvent}
+                    handleClick={handleDeleteClick}
                   />
                 </div>
               )}
@@ -79,20 +78,20 @@ const EventDetails: React.FC = ({}) => {
 
             <div className='flex w-full flex-col gap-5 p-5 md:px-8 md:py-6'>
               <div className='flex flex-col gap-4'>
-                <h2 className='h3-bold'>{data.title}</h2>
+                <h2 className='h3-bold'>{event.title}</h2>
                 <div className='flex flex-wrap gap-2 items-center sm:flex-row'>
                   <div className='flex gap-3'>
                     <p className='p-bold-14 rounded-full px-4 py-1 w-fit bg-green-500/10 text-green-700'>
                       FREE
                     </p>
                     <p className='rounded-full p-medium-14 px-4 py-1 w-fit bg-grey-500/10 text-grey-500'>
-                      {data.category.name}
+                      {event.category.name}
                     </p>
                   </div>
                   <p className='p-medium-18 ml-2 mt-0 sm:mt-0 text-gray-700'>
                     by{' '}
                     <span className='text-primary-500'>
-                      {data.host.name} {data.host.lastname}
+                      {event.host.name} {event.host.lastname}
                     </span>
                   </p>
                 </div>
@@ -107,8 +106,8 @@ const EventDetails: React.FC = ({}) => {
                     alt='calendar'
                   />
                   <div className='p-medium-16 flex flex-col items-center text-gray-700'>
-                    <p>{data.startDateTime}</p>
-                    <p>{data.finishDateTime}</p>
+                    <p>{event.startDateTime.toISOString()}</p>
+                    <p>{event.finishDateTime.toISOString()}</p>
                   </div>
                 </div>
 
@@ -119,13 +118,13 @@ const EventDetails: React.FC = ({}) => {
                     width={28}
                     height={28}
                   />
-                  <p className='p-medium-16 text-gray-700'>{data.location}</p>
+                  <p className='p-medium-16 text-gray-700'>{event.location}</p>
                 </div>
               </div>
 
               <div className='flex flex-col gap-2'>
                 <p className='p-bold-20 text-gray-700'>What You Can Expect</p>
-                <p className='p-medium-16 text-gray-700'>{data.description}</p>
+                <p className='p-medium-16 text-gray-700'>{event.description}</p>
                 <p className='p-medium-16 text-primary-500 truncate underline'>
                   www.google.com
                 </p>

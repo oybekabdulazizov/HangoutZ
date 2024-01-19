@@ -6,11 +6,11 @@ import { IUser_Simple } from '@/lib/interfaces';
 import Cookies from 'js-cookie';
 
 const CreateEvent: FC = ({}) => {
+  const location = useLocation();
   const [currentUser, _setCurrentUser] = useState<IUser_Simple | null>(() => {
     const sessionUser = Cookies.get('user');
     return sessionUser ? JSON.parse(sessionUser) : null;
   });
-  const location = useLocation();
 
   return (
     <>

@@ -32,9 +32,11 @@ export {
 export { useGetCategoriesQuery } from './apis/categoryApi';
 
 export {
-  useCreateMutation,
   useGetEventsQuery,
   useGetEventQuery,
+  useCreateEventMutation,
+  useUpdateEventMutation,
+  useDeleteEventMutation,
 } from './apis/eventApi';
 
 export type RootState = ReturnType<typeof store.getState>;

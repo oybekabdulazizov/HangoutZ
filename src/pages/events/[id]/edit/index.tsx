@@ -4,19 +4,18 @@ import toast from 'react-hot-toast';
 import Cookies from 'js-cookie';
 
 import { useGetEventQuery } from '@/store';
-import { IEvent, IUser_Simple } from '@/lib/interfaces';
+import { IUser_Simple } from '@/lib/interfaces';
 import EventForm from '@/components/shared/eventForm/EventForm';
 import Loading from '@/components/shared/Loading';
 
 const EditEvent: React.FC = ({}) => {
+  const { id } = useParams();
+  const { data: event, isLoading, isError } = useGetEventQuery({ id: id! });
+  const location = useLocation();
   const [currentUser, _setCurrentUser] = useState<IUser_Simple | null>(() => {
     const sessionUser = Cookies.get('user');
     return sessionUser ? JSON.parse(sessionUser) : null;
   });
-  const { id } = useParams();
-  const { data, isLoading, isError } = useGetEventQuery(id);
-  const event: IEvent = data;
-  const location = useLocation();
 
   useEffect(() => {
     if (isError) {

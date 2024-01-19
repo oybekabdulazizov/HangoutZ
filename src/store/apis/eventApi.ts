@@ -1,27 +1,55 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { createApi } from '@reduxjs/toolkit/query/react';
 
-import { BASE_URL } from '@/lib/api/axiosApi';
+import { baseQueryWithReauth } from './baseQuery';
+import { IEvent, IEvent_RequestBody } from '@/lib/interfaces';
 
 const eventApi = createApi({
   reducerPath: 'eventApi',
-  baseQuery: fetchBaseQuery({
-    baseUrl: BASE_URL,
-  }),
+  baseQuery: baseQueryWithReauth,
   endpoints: (builder) => {
     return {
-      getEvents: builder.query({
-        query: (_arg) => {
+      getEvents: builder.query<Array<IEvent>, void>({
+        query: () => {
           return {
             url: '/events',
             method: 'GET',
           };
         },
       }),
-      getEvent: builder.query({
-        query: (eventId) => {
+      getEvent: builder.query<IEvent, { id: string }>({
+        query: ({ id }) => {
           return {
-            url: `/events/${eventId}`,
+            url: `/events/${id}`,
             method: 'GET',
+          };
+        },
+      }),
+      createEvent: builder.mutation<IEvent, IEvent_RequestBody>({
+        query: (body) => {
+          return {
+            url: '/events',
+            method: 'POST',
+            body,
+          };
+        },
+      }),
+      updateEvent: builder.mutation<
+        IEvent,
+        { id: string; body: IEvent_RequestBody }
+      >({
+        query: ({ id, body }) => {
+          return {
+            url: `/events/${id}`,
+            method: 'PUT',
+            body,
+          };
+        },
+      }),
+      deleteEvent: builder.mutation<IEvent, { id: string }>({
+        query: ({ id }) => {
+          return {
+            url: `/events/${id}`,
+            method: 'DELETE',
           };
         },
       }),
@@ -31,4 +59,10 @@ const eventApi = createApi({
 
 export { eventApi };
 
-export const { useGetEventsQuery, useGetEventQuery } = eventApi;
+export const {
+  useGetEventsQuery,
+  useGetEventQuery,
+  useCreateEventMutation,
+  useUpdateEventMutation,
+  useDeleteEventMutation,
+} = eventApi;
