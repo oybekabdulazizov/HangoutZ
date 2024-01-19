@@ -27,3 +27,14 @@ export interface IEvent {
     name: string;
   };
 }
+
+export interface IEvent_RequestBody {
+  title: string;
+  description: string;
+  location: string;
+  category: string;
+  startDateTime: string;
+  finishDateTime: string;
+  url: string;
+  thumbnailUrl: string;
+}
