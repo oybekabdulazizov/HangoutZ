@@ -26,9 +26,11 @@ const Navbar: FC = ({}) => {
         </Link>
 
         <div className='flex justify-between items-center w-fit gap-4'>
-          <Button className='rounded-full' size='lg'>
-            <Link to='/auth/log-in'>Log in</Link>
-          </Button>
+          <Link to='/auth/log-in' className=''>
+            <Button className='rounded-full' size='lg'>
+              Log in
+            </Button>
+          </Link>
           <Link to='/auth/sign-up' className='text-primary'>
             Sign up
           </Link>
