@@ -3,6 +3,8 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { useLocation, useNavigate } from 'react-router';
+import Cookies from 'js-cookie';
+import toast from 'react-hot-toast';
 
 import {
   Form,
@@ -14,14 +16,11 @@ import {
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useLogInMutation } from '@/store';
-import useTokens from '@/hooks/useTokens';
 import { loginInitialValue } from '@/lib/constants';
 import { loginFormSchema } from '@/lib/schemas';
-import toast from 'react-hot-toast';
 
 const LogInForm: FC = ({}) => {
   const [logIn] = useLogInMutation();
-  const { setTokens } = useTokens();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -33,14 +32,14 @@ const LogInForm: FC = ({}) => {
   const onSubmit = async (values: z.infer<typeof loginFormSchema>) => {
     try {
       const res = await logIn(values).unwrap();
-      if (res.status !== 400) form.reset();
-      setTokens('sessionToken', res.sessionToken, {
+      form.reset();
+      Cookies.set('sessionToken', res.sessionToken, {
         expires: new Date(res.sessionTokenExpiresAt),
       });
-      setTokens('refreshToken', res.refreshToken, {
+      Cookies.set('refreshToken', res.refreshToken, {
         expires: new Date(res.refreshTokenExpiresAt),
       });
-      setTokens('user', res.user, {
+      Cookies.set('user', JSON.stringify(res.user), {
         expires: new Date(res.refreshTokenExpiresAt),
       });
       navigate(location.state.from || '/');

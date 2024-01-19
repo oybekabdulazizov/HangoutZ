@@ -7,7 +7,7 @@ import { useGetEventsQuery } from '@/store';
 import Loading from '@/components/shared/Loading';
 
 const Home: FC = ({}) => {
-  const { data, isLoading, isError } = useGetEventsQuery('');
+  const { data: events, isLoading, isError } = useGetEventsQuery();
 
   useEffect(() => {
     if (isError) {
@@ -21,9 +21,9 @@ const Home: FC = ({}) => {
     <div>
       <Hero />
       {isLoading && <Loading size={'responsive'} />}
-      {data && (
+      {events && (
         <Collection
-          data={data}
+          data={events}
           emptyTitle={'No events found'}
           emptyStateSubtext={'Come back later'}
           collectionType={'all_events'}

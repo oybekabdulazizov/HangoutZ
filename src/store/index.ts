@@ -27,11 +27,18 @@ export {
   useSignUpMutation,
   useLogInMutation,
   useResetPasswordMutation,
+  useLogOutMutation,
 } from './apis/authApi';
 
 export { useGetCategoriesQuery } from './apis/categoryApi';
 
-export { useGetEventsQuery, useGetEventQuery } from './apis/eventApi';
+export {
+  useGetEventsQuery,
+  useGetEventQuery,
+  useCreateEventMutation,
+  useUpdateEventMutation,
+  useDeleteEventMutation,
+} from './apis/eventApi';
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;

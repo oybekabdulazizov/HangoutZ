@@ -3,9 +3,8 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import DatePicker from 'react-datepicker';
-import toast from 'react-hot-toast';
-
 import 'react-datepicker/dist/react-datepicker.css';
+import toast from 'react-hot-toast';
 
 import {
   Form,
@@ -14,7 +13,6 @@ import {
   FormItem,
   FormMessage,
 } from '@/components/ui/form';
-import useAxiosPrivate from '@/hooks/useAxiosPrivate';
 import { eventSchema } from '@/lib/schemas';
 import { newEventInitialValues } from '@/lib/constants';
 import { uploadImage } from '@/lib/utils';
@@ -27,9 +25,11 @@ import { calendarIcon, urlIcon } from '@/assets/icons';
 import { Button } from '@/components/ui/button';
 import IEventForm from './IEventForm';
 import { useNavigate } from 'react-router';
+import { useCreateEventMutation, useUpdateEventMutation } from '@/store';
 
 const EventForm: React.FC<IEventForm> = ({ event, actionType }) => {
-  const { axiosPrivate } = useAxiosPrivate();
+  const [updateEvent] = useUpdateEventMutation();
+  const [createEvent] = useCreateEventMutation();
   const [files, setFiles] = useState<File[]>([]);
   const [location, setLocation] = useState<string>(event?.location || '');
   const navigate = useNavigate();
@@ -73,22 +73,18 @@ const EventForm: React.FC<IEventForm> = ({ event, actionType }) => {
     };
     try {
       const res = event
-        ? await axiosPrivate.put(`/events/${event.id}`, eventToBeSaved)
-        : await axiosPrivate.post('/events', eventToBeSaved);
-      if (res.status === 201) form.reset();
-      navigate(`/events/${res.data.id}`);
+        ? await updateEvent({ id: event.id, body: eventToBeSaved }).unwrap()
+        : await createEvent(eventToBeSaved).unwrap();
+      form.reset();
+      navigate(`/events/${res.id}`);
     } catch (err: any) {
       if (err.response && err.response.status === 401) {
-        toast.error('Please log in to proceed', {
-          icon: '❌',
-        });
+        toast.error('Please log in to proceed', { icon: '❌' });
         navigate('/log-in', { state: { from: location }, replace: true });
       } else {
-        toast.error('Error occurred while saving the event', {
-          icon: '❌',
-        });
+        toast.error('Error occurred while saving the event', { icon: '❌' });
+        console.log(err);
       }
-      console.log(err);
     }
   };
 

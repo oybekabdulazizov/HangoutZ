@@ -1,20 +1,19 @@
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 import { Button } from '@/components/ui/button';
-import useAxiosPrivate from '@/hooks/useAxiosPrivate';
-import useTokens from '@/hooks/useTokens';
+import { useLogOutMutation } from '@/store';
 
 const Navbar: FC = ({}) => {
-  const { axiosPrivate } = useAxiosPrivate();
-  const { removeTokens } = useTokens();
+  const [logOut] = useLogOutMutation();
 
   const handleLogout = async () => {
     try {
-      await axiosPrivate.get('/auth/log-out');
-      removeTokens('sessionToken');
-      removeTokens('refreshToken');
-      removeTokens('user');
+      await logOut().unwrap();
+      Cookies.remove('sessionToken');
+      Cookies.remove('refreshToken');
+      Cookies.remove('user');
     } catch (err: any) {
       console.log(err);
     }

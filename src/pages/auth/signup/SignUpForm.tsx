@@ -3,6 +3,9 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import DatePicker from 'react-datepicker';
+import toast from 'react-hot-toast';
+import { useLocation, useNavigate } from 'react-router';
+import Cookies from 'js-cookie';
 
 import {
   Form,
@@ -14,16 +17,12 @@ import {
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useSignUpMutation } from '@/store';
-import useTokens from '@/hooks/useTokens';
 import { signupInitialValues } from '@/lib/constants';
 import { signupFormSchema } from '@/lib/schemas';
 import { calendarIcon } from '@/assets/icons';
-import toast from 'react-hot-toast';
-import { useLocation, useNavigate } from 'react-router';
 
 const SignUpForm: FC = ({}) => {
   const [signUp] = useSignUpMutation();
-  const { setTokens } = useTokens();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -40,14 +39,14 @@ const SignUpForm: FC = ({}) => {
         dateOfBirth: dateOfBirthStr.substring(0, dateOfBirthStr.indexOf('T')),
       };
       const res = await signUp(newUser).unwrap();
-      if (res.status !== 400) form.reset();
-      setTokens('sessionToken', res.sessionToken, {
+      form.reset();
+      Cookies.set('sessionToken', res.sessionToken, {
         expires: new Date(res.sessionTokenExpiresAt),
       });
-      setTokens('refreshToken', res.refreshToken, {
+      Cookies.set('refreshToken', res.refreshToken, {
         expires: new Date(res.refreshTokenExpiresAt),
       });
-      setTokens('user', res.user, {
+      Cookies.set('user', JSON.stringify(res.user), {
         expires: new Date(res.refreshTokenExpiresAt),
       });
       navigate(location.state.from || '/');
