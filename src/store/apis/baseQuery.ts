@@ -26,7 +26,7 @@ export const baseQueryWithReauth: BaseQueryFn<
   FetchBaseQueryError
 > = async (args, api, extraOptions) => {
   let result = await baseQuery(args, api, extraOptions);
-  if (result.error && result.error.status === 403) {
+  if (result.error) {
     const refreshResult = await baseQuery(
       '/auth/refresh-session-token',
       api,

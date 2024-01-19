@@ -27,6 +27,7 @@ export {
   useSignUpMutation,
   useLogInMutation,
   useResetPasswordMutation,
+  useLogOutMutation,
 } from './apis/authApi';
 
 export { useGetCategoriesQuery } from './apis/categoryApi';

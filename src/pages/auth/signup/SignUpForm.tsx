@@ -39,7 +39,7 @@ const SignUpForm: FC = ({}) => {
         dateOfBirth: dateOfBirthStr.substring(0, dateOfBirthStr.indexOf('T')),
       };
       const res = await signUp(newUser).unwrap();
-      if (res.status !== 400) form.reset();
+      form.reset();
       Cookies.set('sessionToken', res.sessionToken, {
         expires: new Date(res.sessionTokenExpiresAt),
       });

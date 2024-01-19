@@ -32,19 +32,17 @@ const LogInForm: FC = ({}) => {
   const onSubmit = async (values: z.infer<typeof loginFormSchema>) => {
     try {
       const res = await logIn(values).unwrap();
-      if (res.status !== 400) {
-        form.reset();
-        Cookies.set('sessionToken', res.sessionToken, {
-          expires: new Date(res.sessionTokenExpiresAt),
-        });
-        Cookies.set('refreshToken', res.refreshToken, {
-          expires: new Date(res.refreshTokenExpiresAt),
-        });
-        Cookies.set('user', JSON.stringify(res.user), {
-          expires: new Date(res.refreshTokenExpiresAt),
-        });
-        navigate(location.state.from || '/');
-      }
+      form.reset();
+      Cookies.set('sessionToken', res.sessionToken, {
+        expires: new Date(res.sessionTokenExpiresAt),
+      });
+      Cookies.set('refreshToken', res.refreshToken, {
+        expires: new Date(res.refreshTokenExpiresAt),
+      });
+      Cookies.set('user', JSON.stringify(res.user), {
+        expires: new Date(res.refreshTokenExpiresAt),
+      });
+      navigate(location.state.from || '/');
     } catch (err: any) {
       toast.error('Error occurred in Log In page', {
         icon: '❌',

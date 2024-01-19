@@ -38,3 +38,31 @@ export interface IEvent_RequestBody {
   url: string;
   thumbnailUrl: string;
 }
+
+export interface ISignUp_Request {
+  name: string;
+  lastname: string;
+  email: string;
+  dateOfBirth: string;
+  password: string;
+}
+
+export interface ILogIn_Request {
+  email: string;
+  password: string;
+}
+
+export interface IResetPassword_Request {
+  email: string;
+  oldPassword: string;
+  newPassword: string;
+  confirmNewPassword: string;
+}
+
+export interface IAuth_Response {
+  user: IUser_Simple;
+  sessionToken: string;
+  sessionTokenExpiresAt: Date;
+  refreshToken: string;
+  refreshTokenExpiresAt: Date;
+}
