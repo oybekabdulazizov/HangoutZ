@@ -1,18 +1,18 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import {
+  createApi,
+} from '@reduxjs/toolkit/query/react';
 
-import { BASE_URL } from '@/lib/api/axiosApi';
+import { baseQueryWithReauth } from './baseQuery';
 
 const authApi = createApi({
   reducerPath: 'authApi',
-  baseQuery: fetchBaseQuery({
-    baseUrl: `${BASE_URL}/auth`,
-  }),
+  baseQuery: baseQueryWithReauth,
   endpoints: (builder) => {
     return {
       signUp: builder.mutation({
         query: (credentials) => {
           return {
-            url: '/sign-up',
+            url: '/auth/sign-up',
             method: 'POST',
             body: credentials,
           };
@@ -21,7 +21,7 @@ const authApi = createApi({
       logIn: builder.mutation({
         query: (credentials) => {
           return {
-            url: '/log-in',
+            url: '/auth/log-in',
             method: 'POST',
             body: credentials,
           };
@@ -30,7 +30,7 @@ const authApi = createApi({
       resetPassword: builder.mutation({
         query: (credentials) => {
           return {
-            url: '/reset-password',
+            url: '/auth/reset-password',
             method: 'POST',
             body: credentials,
           };

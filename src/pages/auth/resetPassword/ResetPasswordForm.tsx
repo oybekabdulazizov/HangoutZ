@@ -2,6 +2,8 @@ import { FC } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
+import toast from 'react-hot-toast';
+import Cookies from 'js-cookie';
 
 import {
   Form,
@@ -12,15 +14,12 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import useTokens from '@/hooks/useTokens';
 import { useResetPasswordMutation } from '@/store';
 import { resetPasswordInitialValues } from '@/lib/constants';
 import { resetPasswordFormSchema } from '@/lib/schemas';
-import toast from 'react-hot-toast';
 
 const ResetPasswordForm: FC = ({}) => {
   const [resetPassword] = useResetPasswordMutation();
-  const { removeTokens } = useTokens();
 
   const form = useForm<z.infer<typeof resetPasswordFormSchema>>({
     resolver: zodResolver(resetPasswordFormSchema),
@@ -31,9 +30,9 @@ const ResetPasswordForm: FC = ({}) => {
     try {
       await resetPassword(values).unwrap();
       form.reset();
-      removeTokens('sessionToken');
-      removeTokens('refreshToken');
-      removeTokens('user');
+      Cookies.remove('sessionToken');
+      Cookies.remove('refreshToken');
+      Cookies.remove('user');
     } catch (err: any) {
       toast.error('Error occurred in Reset Password page', {
         icon: '❌',
