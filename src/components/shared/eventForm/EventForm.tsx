@@ -15,7 +15,7 @@ import {
 } from '@/components/ui/form';
 import { eventSchema } from '@/lib/schemas';
 import { newEventInitialValues } from '@/lib/constants';
-import { uploadImage } from '@/lib/utils';
+import { getTimeWithCurrentTimezone, uploadImage } from '@/lib/utils';
 import { Input } from '@/components/ui/input';
 import CategoryDropdown from '@/components/shared/categoryDropdown/CategoryDropdown';
 import { Textarea } from '@/components/ui/textarea';
@@ -54,12 +54,6 @@ const EventForm: React.FC<IEventForm> = ({ event, actionType }) => {
 
   const onSubmit = async (values: z.infer<typeof eventSchema>) => {
     const { startDateTime, finishDateTime } = values;
-    startDateTime.setMinutes(
-      startDateTime.getMinutes() - startDateTime.getTimezoneOffset()
-    );
-    finishDateTime.setMinutes(
-      finishDateTime.getMinutes() - finishDateTime.getTimezoneOffset()
-    );
     const thumbnailUrl =
       files && files.length > 0
         ? await uploadImage(files)
@@ -68,8 +62,8 @@ const EventForm: React.FC<IEventForm> = ({ event, actionType }) => {
       ...values,
       thumbnailUrl,
       location,
-      startDateTime: startDateTime.toISOString(),
-      finishDateTime: finishDateTime.toISOString(),
+      startDateTime: getTimeWithCurrentTimezone(startDateTime).toISOString(),
+      finishDateTime: getTimeWithCurrentTimezone(finishDateTime).toISOString(),
     };
     try {
       const res = event

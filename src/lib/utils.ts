@@ -50,3 +50,8 @@ export const clearCookie = () => {
   Cookies.remove('refreshToken');
   Cookies.remove('user');
 };
+
+export const getTimeWithCurrentTimezone = (datetime: Date) => {
+  datetime.setMinutes(datetime.getMinutes() - datetime.getTimezoneOffset());
+  return datetime;
+};
