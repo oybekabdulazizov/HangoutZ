@@ -106,8 +106,8 @@ const EventDetails: React.FC = ({}) => {
                     alt='calendar'
                   />
                   <div className='p-medium-16 flex flex-col items-center text-gray-700'>
-                    <p>{event.startDateTime.toISOString()}</p>
-                    <p>{event.finishDateTime.toISOString()}</p>
+                    <p>{new Date(event.startDateTime).toISOString()}</p>
+                    <p>{new Date(event.finishDateTime).toISOString()}</p>
                   </div>
                 </div>
 
