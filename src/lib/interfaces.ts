@@ -66,3 +66,9 @@ export interface IAuth_Response {
   refreshToken: string;
   refreshTokenExpiresAt: Date;
 }
+
+export interface ICategory_Response {
+  id: string;
+  name: string;
+  numberOfEvents: number;
+}

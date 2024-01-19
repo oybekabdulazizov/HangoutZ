@@ -1,3 +1,6 @@
+import { useEffect } from 'react';
+import toast from 'react-hot-toast';
+
 import { useGetCategoriesQuery } from '@/store';
 import {
   Select,
@@ -9,11 +12,9 @@ import {
 import IDropdown from './ICategoryDropdown';
 import { ICategory } from '@/lib/interfaces';
 import Loading from '../Loading';
-import { useEffect } from 'react';
-import toast from 'react-hot-toast';
 
 const CategoryDropdown: React.FC<IDropdown> = ({ value, onChangeHandler }) => {
-  const { data, isLoading, isError } = useGetCategoriesQuery('');
+  const { data: categories, isLoading, isError } = useGetCategoriesQuery();
 
   useEffect(() => {
     if (isError) {
@@ -30,11 +31,11 @@ const CategoryDropdown: React.FC<IDropdown> = ({ value, onChangeHandler }) => {
       </SelectTrigger>
       <SelectContent>
         {isLoading && <Loading size={'default'} />}
-        {data && (
+        {categories && (
           <>
-            {data.length > 0 ? (
+            {categories.length > 0 ? (
               <>
-                {data.map((category: ICategory) => (
+                {categories.map((category: ICategory) => (
                   <SelectItem
                     key={category.id}
                     value={category.id}
