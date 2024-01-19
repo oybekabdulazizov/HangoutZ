@@ -1,18 +1,21 @@
 import { Navigate, useLocation, useParams } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
+import Cookies from 'js-cookie';
 
 import { useGetEventQuery } from '@/store';
-import { IEvent } from '@/lib/interfaces';
+import { IEvent, IUser_Simple } from '@/lib/interfaces';
 import EventForm from '@/components/shared/eventForm/EventForm';
 import Loading from '@/components/shared/Loading';
-import useTokens from '@/hooks/useTokens';
 
 const EditEvent: React.FC = ({}) => {
+  const [currentUser, _setCurrentUser] = useState<IUser_Simple | null>(() => {
+    const sessionUser = Cookies.get('user');
+    return sessionUser ? JSON.parse(sessionUser) : null;
+  });
   const { id } = useParams();
   const { data, isLoading, isError } = useGetEventQuery(id);
   const event: IEvent = data;
-  const { tokens } = useTokens();
   const location = useLocation();
 
   useEffect(() => {
@@ -25,7 +28,7 @@ const EditEvent: React.FC = ({}) => {
 
   return (
     <>
-      {tokens.user ? (
+      {currentUser ? (
         <>
           {isLoading && (
             <div className='mt-auto'>
@@ -34,7 +37,7 @@ const EditEvent: React.FC = ({}) => {
           )}
           {event && (
             <>
-              {tokens.user.id === event.host.id ? (
+              {currentUser.id === event.host.id ? (
                 <>
                   <div className='bg-primary-50 bg-dotted-pattern bg-cover bg-center pt-4 md:pt-6'>
                     <h3 className='wrapper h3-bold text-center sm:text-left'>

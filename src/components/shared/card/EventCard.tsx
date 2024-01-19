@@ -1,14 +1,19 @@
 import { Link } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
-import useTokens from '@/hooks/useTokens';
 import { deleteIcon, editIcon } from '@/assets/icons';
 import AlertDialogPopup from '../alertDialogPopup/AlertDialogPopup';
 import useAxiosPrivate from '@/hooks/useAxiosPrivate';
 import IEventCard from './IEventCard';
+import { useState } from 'react';
+import { IUser_Simple } from '@/lib/interfaces';
 
 const EventCard: React.FC<IEventCard> = ({ event }) => {
-  const { tokens } = useTokens();
-  const isEventCreator = tokens.user ? tokens.user.id === event.host.id : false;
+  const [currentUser, _setCurrentUser] = useState<IUser_Simple | null>(() => {
+    const sessionUser = Cookies.get('user');
+    return sessionUser ? JSON.parse(sessionUser) : null;
+  });
+  const isEventCreator = currentUser ? currentUser.id === event.host.id : false;
   const { axiosPrivate } = useAxiosPrivate();
 
   const deleteEvent = async () => {

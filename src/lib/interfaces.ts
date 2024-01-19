@@ -3,7 +3,7 @@ export interface ICategory {
   name: string;
 }
 
-interface IUser_Simple {
+export interface IUser_Simple {
   id: string;
   name: string;
   lastname: string;

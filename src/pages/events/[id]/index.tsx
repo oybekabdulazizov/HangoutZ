@@ -1,6 +1,7 @@
 import { Link, useParams } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
+import Cookies from 'js-cookie';
 
 import {
   calendarIcon,
@@ -10,17 +11,21 @@ import {
 } from '@/assets/icons';
 import { useGetEventQuery } from '@/store';
 import Loading from '@/components/shared/Loading';
-import useTokens from '@/hooks/useTokens';
 import AlertDialogPopup from '@/components/shared/alertDialogPopup/AlertDialogPopup';
 import useAxiosPrivate from '@/hooks/useAxiosPrivate';
+import { IUser_Simple } from '@/lib/interfaces';
 
 const EventDetails: React.FC = ({}) => {
+  const [currentUser, _setCurrentUser] = useState<IUser_Simple | null>(() => {
+    const sessionUser = Cookies.get('user');
+    return sessionUser ? JSON.parse(sessionUser) : null;
+  });
   const { id } = useParams();
   const { data, isLoading, isError } = useGetEventQuery(id);
-  const { tokens } = useTokens();
   const { axiosPrivate } = useAxiosPrivate();
-  const isEventCreator = tokens.user
-    ? tokens.user.id === data?.host?.id
+
+  const isEventCreator = currentUser
+    ? currentUser.id === data?.host?.id
     : false;
 
   useEffect(() => {
