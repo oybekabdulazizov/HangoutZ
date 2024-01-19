@@ -15,7 +15,7 @@ const Collection: React.FC<ICollection> = ({
             <ul className='grid w-full grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:gap-10'>
               {data.map((event) => {
                 return (
-                  <li key={event.id}>
+                  <li key={event.id} className='flex justify-center'>
                     <EventCard event={event} />
                   </li>
                 );
