@@ -22,12 +22,17 @@ const Home: FC = ({}) => {
       <Hero />
       {isLoading && <Loading size={'responsive'} />}
       {events && (
-        <Collection
-          data={events}
-          emptyTitle={'No events found'}
-          emptyStateSubtext={'Come back later'}
-          collectionType={'all_events'}
-        />
+        <div className='flex flex-col gap-3 py-6'>
+          <div className='wrapper'>
+            <h2 className='h2-bold'>Trusted by inspiring Events</h2>
+          </div>
+          <Collection
+            data={events}
+            emptyTitle={'No events found'}
+            emptyStateSubtext={'Come back later'}
+            collectionType={'all_events'}
+          />
+        </div>
       )}
     </div>
   );
