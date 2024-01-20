@@ -16,6 +16,14 @@ const eventApi = createApi({
           };
         },
       }),
+      getEventsByCategory: builder.query<Array<IEvent>, { category?: string }>({
+        query: ({ category }) => {
+          return {
+            url: `/events?category=${category}`,
+            method: 'GET',
+          };
+        },
+      }),
       getEvent: builder.query<IEvent, { id: string }>({
         query: ({ id }) => {
           return {
@@ -61,6 +69,7 @@ export { eventApi };
 
 export const {
   useGetEventsQuery,
+  useGetEventsByCategoryQuery,
   useGetEventQuery,
   useCreateEventMutation,
   useUpdateEventMutation,

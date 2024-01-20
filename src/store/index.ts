@@ -34,6 +34,7 @@ export { useGetCategoriesQuery } from './apis/categoryApi';
 
 export {
   useGetEventsQuery,
+  useGetEventsByCategoryQuery,
   useGetEventQuery,
   useCreateEventMutation,
   useUpdateEventMutation,
