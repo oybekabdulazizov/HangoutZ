@@ -34,7 +34,7 @@ const LogInForm: FC = ({}) => {
       const res = await logIn(values).unwrap();
       form.reset();
       saveToCookie(res);
-      navigate(location.state.from || '/');
+      navigate(location.state?.from || '/');
     } catch (err: any) {
       toast.error('Error occurred in Log In page', {
         icon: '❌',

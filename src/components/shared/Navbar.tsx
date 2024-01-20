@@ -19,7 +19,7 @@ const Navbar: FC = ({}) => {
 
   return (
     <header className='w-ful border-b'>
-      <div className='wrapper flex items-center justify-between'>
+      <div className='wrapper py-4 flex items-center justify-between'>
         <Link to='/'>
           {/* here goes the logo */}
           <img src='image.jpg' alt='logo' />

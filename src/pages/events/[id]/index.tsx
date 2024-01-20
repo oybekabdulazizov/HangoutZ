@@ -156,7 +156,7 @@ const EventDetails: React.FC = ({}) => {
             </div>
           </div>
 
-          <div className='flex flex-col gap-3 py-6'>
+          <div className='flex flex-col gap-6 py-8'>
             <div className='wrapper'>
               <h2 className='h3-bold'>Related Events</h2>
             </div>

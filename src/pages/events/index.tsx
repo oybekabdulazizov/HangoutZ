@@ -22,7 +22,7 @@ const Home: FC = ({}) => {
       <Hero />
       {isLoading && <Loading size={'responsive'} />}
       {events && (
-        <div className='flex flex-col gap-3 py-6'>
+        <div className='flex flex-col gap-6 py-8'>
           <div className='wrapper'>
             <h2 className='h2-bold'>Trusted by inspiring Events</h2>
           </div>
