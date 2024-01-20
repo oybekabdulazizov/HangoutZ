@@ -8,16 +8,8 @@ const eventApi = createApi({
   baseQuery: baseQueryWithReauth,
   endpoints: (builder) => {
     return {
-      getEvents: builder.query<Array<IEvent>, void>({
-        query: () => {
-          return {
-            url: '/events',
-            method: 'GET',
-          };
-        },
-      }),
-      getEventsByCategory: builder.query<Array<IEvent>, { category?: string }>({
-        query: ({ category }) => {
+      getEvents: builder.query<Array<IEvent>, { category?: string }>({
+        query: ({ category = '' }) => {
           return {
             url: `/events?category=${category}`,
             method: 'GET',
@@ -69,7 +61,6 @@ export { eventApi };
 
 export const {
   useGetEventsQuery,
-  useGetEventsByCategoryQuery,
   useGetEventQuery,
   useCreateEventMutation,
   useUpdateEventMutation,

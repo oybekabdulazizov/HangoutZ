@@ -12,7 +12,7 @@ import {
 import {
   useDeleteEventMutation,
   useGetEventQuery,
-  useGetEventsByCategoryQuery,
+  useGetEventsQuery,
 } from '@/store';
 import Loading from '@/components/shared/Loading';
 import AlertDialogPopup from '@/components/shared/alertDialogPopup/AlertDialogPopup';
@@ -28,7 +28,7 @@ const EventDetails: React.FC = ({}) => {
     isError,
     error,
   } = useGetEventQuery({ id: id! });
-  const { data: relatedEvents } = useGetEventsByCategoryQuery({
+  const { data: relatedEvents } = useGetEventsQuery({
     category: event?.category.name,
   });
   const [deleteEvent] = useDeleteEventMutation();

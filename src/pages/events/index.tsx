@@ -7,7 +7,7 @@ import { useGetEventsQuery } from '@/store';
 import Loading from '@/components/shared/Loading';
 
 const Home: FC = ({}) => {
-  const { data: events, isLoading, isError } = useGetEventsQuery();
+  const { data: events, isLoading, isError } = useGetEventsQuery({});
 
   useEffect(() => {
     if (isError) {
