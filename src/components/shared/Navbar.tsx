@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 import { Button } from '@/components/ui/button';
 import { useLogOutMutation } from '@/store';
@@ -26,17 +27,22 @@ const Navbar: FC = ({}) => {
         </Link>
 
         <div className='flex justify-between items-center w-fit gap-4'>
-          <Link to='/auth/log-in' className=''>
-            <Button className='rounded-full' size='lg'>
-              Log in
+          {Cookies.get('user') ? (
+            <Button className='rounded-full' size='lg' onClick={handleLogout}>
+              Log out
             </Button>
-          </Link>
-          <Link to='/auth/sign-up' className='text-primary'>
-            Sign up
-          </Link>
-          <Button className='rounded-full' size='lg' onClick={handleLogout}>
-            Log out
-          </Button>
+          ) : (
+            <>
+              <Link to='/auth/log-in' className=''>
+                <Button className='rounded-full' size='lg'>
+                  Log in
+                </Button>
+              </Link>
+              <Link to='/auth/sign-up' className='text-primary'>
+                Sign up
+              </Link>
+            </>
+          )}
         </div>
       </div>
     </header>
