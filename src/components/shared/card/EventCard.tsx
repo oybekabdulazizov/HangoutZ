@@ -28,9 +28,10 @@ const EventCard: React.FC<IEventCard> = ({ event }) => {
     <div className='group relative min-h-[380px] w-full max-w-[400px] flex flex-col overflow-hidden rounded-xl bg-white shadow-md transition-all hover:shadow-lg md:min-h-[438px]'>
       <Link
         to={`/events/${event.id}`}
-        style={{ backgroundImage: `url{${event.thumbnailUrl}}` }}
         className='flex justify-between items-between flex-grow bg-primary-50 bg-cover bg-center text-grey-500'
-      />
+      >
+        <img src={event.thumbnailUrl} alt='event thumbnail' />
+      </Link>
       {isEventCreator && (
         <div className='absolute right-2 top-2 flex flex-col gap-4 rounded-xl bg-white p-2 shadow-sm transition-all'>
           <Link to={`/events/${event.id}/edit`}>
