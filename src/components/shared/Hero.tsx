@@ -8,7 +8,7 @@ import heroImg from '../../assets/images/hero.png';
 const Hero: FC = ({}) => {
   return (
     <section className='bg-primary-50 bg-dotted-pattern bg-contain py-12'>
-      <div className='wrapper md:py-6 grid grid-cols-1 gap-5 md:gap-10 md:grid-cols-2'>
+      <div className='wrapper px-6 md:py-6 grid grid-cols-1 gap-5 md:gap-10 md:grid-cols-2'>
         <div className='flex flex-col justify-center gap-8'>
           <h1 className='h1-bold'>
             Host, Connect, and Celebrate: Your Events, Our Platform!

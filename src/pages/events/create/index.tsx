@@ -17,11 +17,11 @@ const CreateEvent: FC = ({}) => {
       {currentUser ? (
         <>
           <div className='bg-primary-50 bg-dotted-pattern bg-cover bg-center pt-4 md:pt-6'>
-            <h3 className='wrapper py-4 h3-bold text-center md:text-left'>
+            <h3 className='wrapper px-6 py-4 h3-bold text-center md:text-left'>
               Create Event
             </h3>
           </div>
-          <div className='wrapper py-4 md:py-6 min-h-full'>
+          <div className='wrapper px-6 py-4 md:py-6 min-h-full'>
             <EventForm actionType={'create'} />
           </div>
         </>

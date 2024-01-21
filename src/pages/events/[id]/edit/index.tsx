@@ -39,11 +39,11 @@ const EditEvent: React.FC = ({}) => {
               {currentUser.id === event.host.id ? (
                 <>
                   <div className='bg-primary-50 bg-dotted-pattern bg-cover bg-center pt-4 md:pt-6'>
-                    <h3 className='wrapper py-4 h3-bold text-center sm:text-left'>
+                    <h3 className='wrapper px-6 py-4 h3-bold text-center md:text-left'>
                       Edit Event
                     </h3>
                   </div>
-                  <div className='wrapper py-4 md:py-6 min-h-full'>
+                  <div className='wrapper px-6 py-4 md:py-6 min-h-full'>
                     <EventForm event={event} actionType='edit' />
                   </div>
                 </>

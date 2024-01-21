@@ -23,11 +23,11 @@ const Home: FC = ({}) => {
       {isLoading && <Loading size={'responsive'} />}
       {events && (
         <div className='flex flex-col gap-6 py-8'>
-          <div className='wrapper'>
+          <div className='wrapper px-6'>
             <h2 className='h2-bold'>Trusted by inspiring Events</h2>
           </div>
           <Collection
-            data={events}
+            data={events ? events : []}
             emptyTitle={'No events found'}
             emptyStateSubtext={'Come back later'}
             collectionType={'all_events'}
