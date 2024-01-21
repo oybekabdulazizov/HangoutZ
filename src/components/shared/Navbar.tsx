@@ -5,6 +5,8 @@ import Cookies from 'js-cookie';
 import { Button } from '@/components/ui/button';
 import { useLogOutMutation } from '@/store';
 import { clearCookie } from '@/lib/utils';
+import NavItems from './NavItems';
+import MobileNav from './MobileNav';
 
 const Navbar: FC = ({}) => {
   const [logOut] = useLogOutMutation();
@@ -26,7 +28,13 @@ const Navbar: FC = ({}) => {
           <img src='image.jpg' alt='logo' />
         </Link>
 
-        <div className='flex justify-between items-center w-fit gap-4'>
+        <div className='hidden md:flex md:flex-row md:items-center'>
+          <NavItems />
+        </div>
+
+        <MobileNav handleLogout={handleLogout} />
+
+        <div className='hidden md:flex justify-between items-center w-fit gap-4'>
           {Cookies.get('user') ? (
             <Button className='rounded-full' size='lg' onClick={handleLogout}>
               Log out

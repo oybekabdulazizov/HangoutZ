@@ -6,6 +6,7 @@ import spinnerIcon from '@/assets/icons/spinner.svg';
 import spinnerWhiteIcon from '@/assets/icons/spinner-white.svg';
 import editIcon from '@/assets/icons/edit.svg';
 import deleteIcon from '@/assets/icons/delete.svg';
+import menuIcon from '@/assets/icons/menu.svg';
 
 export {
   calendarIcon,
@@ -16,4 +17,5 @@ export {
   spinnerWhiteIcon,
   editIcon,
   deleteIcon,
+  menuIcon,
 };

@@ -33,3 +33,18 @@ export const newEventInitialValues = {
 export const acceptImageTypes = {
   'image/*': ['.png', '.gif', '.jpeg', '.jpg'],
 };
+
+export const navLinks = [
+  {
+    label: 'Home',
+    route: '/',
+  },
+  {
+    label: 'Create Event',
+    route: '/events/create',
+  },
+  {
+    label: 'My Events',
+    route: '/profile/events',
+  },
+];
