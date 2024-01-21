@@ -6,12 +6,17 @@ import { deleteIcon, editIcon, spinnerWhiteIcon } from '@/assets/icons';
 import AlertDialogPopup from '../alertDialogPopup/AlertDialogPopup';
 import IEventCard from './IEventCard';
 import { IUser_Simple } from '@/lib/interfaces';
-import { useAttendEventMutation, useDeleteEventMutation } from '@/store';
+import {
+  useAttendEventMutation,
+  useCancelEventMutation,
+  useDeleteEventMutation,
+} from '@/store';
 import { Button } from '@/components/ui/button';
 
 const EventCard: React.FC<IEventCard> = ({ event }) => {
   const [deleteEvent] = useDeleteEventMutation();
   const [attendEvent, { isLoading, isError, error }] = useAttendEventMutation();
+  const [cancelEvent] = useCancelEventMutation();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -28,8 +33,6 @@ const EventCard: React.FC<IEventCard> = ({ event }) => {
       : false;
   });
 
-  const handleDeleteClick = async () => await deleteEvent({ id: event.id });
-
   useEffect(() => {
     if (isError) {
       if (error && 'status' in error && error.status === 401) {
@@ -38,7 +41,12 @@ const EventCard: React.FC<IEventCard> = ({ event }) => {
     }
   }, [isError]);
 
+  const handleDeleteClick = async () => await deleteEvent({ id: event.id });
+
   const handleEventAttendance = async () => await attendEvent({ id: event.id });
+
+  const handleEventCancellation = async () =>
+    await cancelEvent({ id: event.id });
 
   return (
     <div className='group relative min-h-[1000px] w-full max-w-[400px] flex flex-col overflow-hidden rounded-xl bg-white shadow-md transition-all hover:shadow-lg md:min-h-[440px]'>
@@ -85,13 +93,41 @@ const EventCard: React.FC<IEventCard> = ({ event }) => {
           </p>
         </div>
       </Link>
-      {!event.cancelled && (
+      {event.cancelled ? (
         <>
-          {isEventAttende ? (
+          {isEventHost ? (
             <>
               <Button
-                onClick={handleEventAttendance}
-                className={`before:content-['Attending'] hover:before:content-['Cancel_Attendance'] mb-2 mx-2`}
+                onClick={handleEventCancellation}
+                className={`before:content-['Cancelled'] hover:before:content-['Activate'] m-2`}
+              >
+                {isLoading ? (
+                  <img
+                    src={spinnerWhiteIcon}
+                    alt='loading'
+                    width={20}
+                    height={20}
+                  />
+                ) : (
+                  ''
+                )}
+              </Button>
+            </>
+          ) : (
+            <Button
+              className={`bg-gray-400 m-2 hover:bg-gray-400 hover:cursor-not-allowed`}
+            >
+              Cancelled
+            </Button>
+          )}
+        </>
+      ) : (
+        <>
+          {isEventHost ? (
+            <>
+              <Button
+                onClick={handleEventCancellation}
+                className={`before:content-['Hosting'] hover:before:content-['Cancel_Event'] m-2`}
               >
                 {isLoading ? (
                   <img
@@ -107,18 +143,40 @@ const EventCard: React.FC<IEventCard> = ({ event }) => {
             </>
           ) : (
             <>
-              <Button onClick={handleEventAttendance} className={`mb-2 mx-2`}>
-                {isLoading ? (
-                  <img
-                    src={spinnerWhiteIcon}
-                    alt='loading'
-                    width={20}
-                    height={20}
-                  />
-                ) : (
-                  'Attend'
-                )}
-              </Button>
+              {isEventAttende ? (
+                <>
+                  <Button
+                    onClick={handleEventAttendance}
+                    className={`before:content-['Attending'] hover:before:content-['Cancel_Attendance'] m-2`}
+                  >
+                    {isLoading ? (
+                      <img
+                        src={spinnerWhiteIcon}
+                        alt='loading'
+                        width={20}
+                        height={20}
+                      />
+                    ) : (
+                      ''
+                    )}
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Button onClick={handleEventAttendance} className={`m-2`}>
+                    {isLoading ? (
+                      <img
+                        src={spinnerWhiteIcon}
+                        alt='loading'
+                        width={20}
+                        height={20}
+                      />
+                    ) : (
+                      'Attend'
+                    )}
+                  </Button>
+                </>
+              )}
             </>
           )}
         </>

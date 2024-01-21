@@ -33,7 +33,6 @@ export const baseQueryWithReauth: BaseQueryFn<
         api,
         extraOptions
       );
-      console.log(refreshResult);
       if (refreshResult.data) {
         const data: any = { ...refreshResult.data };
         Cookies.set('sessionToken', data.sessionToken, {

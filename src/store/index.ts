@@ -39,6 +39,7 @@ export {
   useUpdateEventMutation,
   useDeleteEventMutation,
   useAttendEventMutation,
+  useCancelEventMutation,
 } from './apis/eventApi';
 
 export type RootState = ReturnType<typeof store.getState>;

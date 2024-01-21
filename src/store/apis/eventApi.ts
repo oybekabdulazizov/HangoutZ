@@ -61,6 +61,14 @@ const eventApi = createApi({
           };
         },
       }),
+      cancelEvent: builder.mutation<IEvent, { id: string }>({
+        query: ({ id }) => {
+          return {
+            url: `/events/${id}/cancel`,
+            method: 'POST',
+          };
+        },
+      }),
     };
   },
 });
@@ -74,4 +82,5 @@ export const {
   useUpdateEventMutation,
   useDeleteEventMutation,
   useAttendEventMutation,
+  useCancelEventMutation,
 } = eventApi;
