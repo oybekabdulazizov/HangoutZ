@@ -41,13 +41,13 @@ export const uploadImage = async (files: File[]): Promise<string> => {
 
 export const saveToCookie = (res: IAuth_Response) => {
   Cookies.set('sessionToken', res.sessionToken, {
-    expires: getTimeWithCurrentTimezone(new Date(res.sessionTokenExpiresAt)),
+    expires: new Date(res.sessionTokenExpiresAt),
   });
   Cookies.set('refreshToken', res.refreshToken, {
-    expires: getTimeWithCurrentTimezone(new Date(res.refreshTokenExpiresAt)),
+    expires: new Date(res.refreshTokenExpiresAt),
   });
   Cookies.set('user', JSON.stringify(res.user), {
-    expires: getTimeWithCurrentTimezone(new Date(res.refreshTokenExpiresAt)),
+    expires: new Date(res.refreshTokenExpiresAt),
   });
 };
 
