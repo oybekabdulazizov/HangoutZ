@@ -26,22 +26,24 @@ export const baseQueryWithReauth: BaseQueryFn<
   FetchBaseQueryError
 > = async (args, api, extraOptions) => {
   let result = await baseQuery(args, api, extraOptions);
-  if (
-    result.error &&
-    (result.error.status === 401 || result.error.status === 403)
-  ) {
-    const refreshResult = await baseQuery(
-      '/auth/refresh-session-token',
-      api,
-      extraOptions
-    );
-    if (refreshResult.data) {
-      const data: any = { ...refreshResult.data };
-      Cookies.set('sessionToken', data.sessionToken, {
-        expires: new Date(data.sessionTokenExpiresAt),
-      });
+  if (result.error) {
+    if ([401, 403].includes(result.error.status as number)) {
+      const refreshResult = await baseQuery(
+        '/auth/refresh-session-token',
+        api,
+        extraOptions
+      );
+      console.log(refreshResult);
+      if (refreshResult.data) {
+        const data: any = { ...refreshResult.data };
+        Cookies.set('sessionToken', data.sessionToken, {
+          expires: new Date(data.sessionTokenExpiresAt),
+        });
+        result = await baseQuery(args, api, extraOptions);
+      } else {
+        return refreshResult;
+      }
     }
-    result = await baseQuery(args, api, extraOptions);
   }
   return result;
 };

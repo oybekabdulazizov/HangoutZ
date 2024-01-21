@@ -53,6 +53,14 @@ const eventApi = createApi({
           };
         },
       }),
+      attendEvent: builder.mutation<IEvent, { id: string }>({
+        query: ({ id }) => {
+          return {
+            url: `/events/${id}/attend`,
+            method: 'POST',
+          };
+        },
+      }),
     };
   },
 });
@@ -65,4 +73,5 @@ export const {
   useCreateEventMutation,
   useUpdateEventMutation,
   useDeleteEventMutation,
+  useAttendEventMutation,
 } = eventApi;
