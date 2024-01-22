@@ -6,9 +6,18 @@ import { IEvent, IEvent_RequestBody } from '@/lib/interfaces';
 const eventApi = createApi({
   reducerPath: 'eventApi',
   baseQuery: baseQueryWithReauth,
+  tagTypes: ['events'],
   endpoints: (builder) => {
     return {
       getEvents: builder.query<Array<IEvent>, { category?: string }>({
+        providesTags: (result, _error, _arg) => {
+          return result
+            ? [
+                ...result.map(({ id }) => ({ type: 'events' as const, id })),
+                'events',
+              ]
+            : ['events'];
+        },
         query: ({ category = '' }) => {
           return {
             url: `/events?category=${category}`,
@@ -17,6 +26,9 @@ const eventApi = createApi({
         },
       }),
       getEvent: builder.query<IEvent, { id: string }>({
+        providesTags: (_result, _error, arg) => {
+          return [{ type: 'events' as const, id: arg.id }, 'events'];
+        },
         query: ({ id }) => {
           return {
             url: `/events/${id}`,
@@ -25,6 +37,7 @@ const eventApi = createApi({
         },
       }),
       createEvent: builder.mutation<IEvent, IEvent_RequestBody>({
+        invalidatesTags: ['events'],
         query: (body) => {
           return {
             url: '/events',
@@ -37,6 +50,9 @@ const eventApi = createApi({
         IEvent,
         { id: string; body: IEvent_RequestBody }
       >({
+        invalidatesTags: (_result, _error, arg) => {
+          return [{ type: 'events' as const, id: arg.id }, 'events'];
+        },
         query: ({ id, body }) => {
           return {
             url: `/events/${id}`,
@@ -46,6 +62,7 @@ const eventApi = createApi({
         },
       }),
       deleteEvent: builder.mutation<IEvent, { id: string }>({
+        invalidatesTags: ['events'],
         query: ({ id }) => {
           return {
             url: `/events/${id}`,
@@ -54,6 +71,9 @@ const eventApi = createApi({
         },
       }),
       attendEvent: builder.mutation<IEvent, { id: string }>({
+        invalidatesTags: (_result, _error, arg) => {
+          return [{ type: 'events' as const, id: arg.id }, 'events'];
+        },
         query: ({ id }) => {
           return {
             url: `/events/${id}/attend`,
@@ -62,6 +82,9 @@ const eventApi = createApi({
         },
       }),
       cancelEvent: builder.mutation<IEvent, { id: string }>({
+        invalidatesTags: (_result, _error, arg) => {
+          return [{ type: 'events' as const, id: arg.id }, 'events'];
+        },
         query: ({ id }) => {
           return {
             url: `/events/${id}/cancel`,

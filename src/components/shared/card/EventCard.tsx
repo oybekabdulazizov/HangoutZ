@@ -49,7 +49,7 @@ const EventCard: React.FC<IEventCard> = ({ event }) => {
     await cancelEvent({ id: event.id });
 
   return (
-    <div className='group relative min-h-[1000px] w-full max-w-[400px] flex flex-col overflow-hidden rounded-xl bg-white shadow-md transition-all hover:shadow-lg md:min-h-[440px]'>
+    <div className='group relative min-h-[400px] w-full max-w-[400px] flex flex-col overflow-hidden rounded-xl bg-white shadow-md transition-all hover:shadow-lg md:min-h-[440px]'>
       <Link
         to={`/events/${event.id}`}
         className='flex justify-between items-between flex-grow bg-primary-50 bg-cover bg-center text-grey-500'
