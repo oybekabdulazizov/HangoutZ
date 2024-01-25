@@ -26,26 +26,30 @@ const MobileNav: React.FC<{ handleLogout: () => void }> = ({
           <img src='image.jpg' alt='logo' />
           <Separator className='border border-gray-100' />
           <NavItems />
-          <div className='mt-4 flex flex-row gap-4 items-center'>
+          <div className='mt-auto flex flex-row gap-4 items-center w-full'>
             {Cookies.get('user') ? (
               <Button
-                className='rounded-full w-fit'
+                className='bg-primary-500 text-white py-2 px-4 rounded-full w-full border-2 border-primary'
                 size='lg'
                 onClick={handleLogout}
               >
                 Log out
               </Button>
             ) : (
-              <>
-                <Link to='/auth/log-in' className=''>
-                  <Button className='rounded-full' size='lg'>
-                    Log in
-                  </Button>
+              <div className='w-full flex flex-col gap-4 items-center text-center'>
+                <Link
+                  to='/auth/log-in'
+                  className='bg-primary-500 text-white py-2 px-4 rounded-full w-full border-2 border-primary'
+                >
+                  Log in
                 </Link>
-                <Link to='/auth/sign-up' className='text-primary'>
+                <Link
+                  to='/auth/sign-up'
+                  className='text-primary w-full rounded-full border-2 border-primary py-2 px-4'
+                >
                   Sign up
                 </Link>
-              </>
+              </div>
             )}
           </div>
         </SheetContent>

@@ -41,10 +41,11 @@ const Navbar: FC = ({}) => {
             </Button>
           ) : (
             <>
-              <Link to='/auth/log-in' className=''>
-                <Button className='rounded-full' size='lg'>
-                  Log in
-                </Button>
+              <Link
+                to='/auth/log-in'
+                className='bg-primary-500 text-white py-2 px-6 rounded-full border-2 border-primary text-center'
+              >
+                Log in
               </Link>
               <Link to='/auth/sign-up' className='text-primary'>
                 Sign up

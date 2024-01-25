@@ -40,11 +40,32 @@ export const navLinks = [
     route: '/',
   },
   {
-    label: 'Create Event',
-    route: '/events/create',
+    label: 'Events',
+    route: '/profile/events',
+    subRoutes: [
+      {
+        route: '/events/create',
+        title: 'Create',
+        subtitle: `Let's set up one now quickly :)`,
+      },
+      {
+        route: '/profile/events#hosting',
+        title: 'Hosting',
+        subtitle: 'Events organized and hosted by you',
+      },
+      {
+        route: '/profile/events#attending',
+        title: 'Attending',
+        subtitle: 'Events you are attending (hosting events are included)',
+      },
+    ],
   },
   {
-    label: 'My Events',
-    route: '/profile/events',
+    label: 'About Us',
+    route: '/about',
+  },
+  {
+    label: 'Collab',
+    route: '/collaborate',
   },
 ];
