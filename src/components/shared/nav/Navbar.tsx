@@ -1,12 +1,11 @@
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
-import Cookies from 'js-cookie';
 
-import { Button } from '@/components/ui/button';
 import { useLogOutMutation } from '@/store';
 import { clearCookie } from '@/lib/utils';
 import NavItems from './NavItems';
 import MobileNav from './MobileNav';
+import UserDropdown from './UserDropdown';
 
 const Navbar: FC = ({}) => {
   const [logOut] = useLogOutMutation();
@@ -35,23 +34,7 @@ const Navbar: FC = ({}) => {
         <MobileNav handleLogout={handleLogout} />
 
         <div className='hidden md:flex justify-between items-center w-fit gap-4'>
-          {Cookies.get('user') ? (
-            <Button className='rounded-full' size='lg' onClick={handleLogout}>
-              Log out
-            </Button>
-          ) : (
-            <>
-              <Link
-                to='/auth/log-in'
-                className='bg-primary-500 text-white py-2 px-6 rounded-full border-2 border-primary text-center'
-              >
-                Log in
-              </Link>
-              <Link to='/auth/sign-up' className='text-primary'>
-                Sign up
-              </Link>
-            </>
-          )}
+          <UserDropdown handleLogout={handleLogout} />
         </div>
       </div>
     </header>

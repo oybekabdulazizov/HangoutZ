@@ -3,9 +3,10 @@ import Cookies from 'js-cookie';
 
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { menuIcon } from '@/assets/icons';
-import { Separator } from '@radix-ui/react-select';
 import NavItems from './NavItems';
 import { Button } from '../../ui/button';
+import UserDropdown from './UserDropdown';
+import { Separator } from '@/components/ui/separator';
 
 const MobileNav: React.FC<{ handleLogout: () => void }> = ({
   handleLogout,
@@ -22,10 +23,11 @@ const MobileNav: React.FC<{ handleLogout: () => void }> = ({
             className='cursor-pointer'
           />
         </SheetTrigger>
-        <SheetContent className='flex flex-col gap-6 bg-white md:hidden'>
+        <SheetContent className='flex flex-col gap-4 bg-white md:hidden'>
           <img src='image.jpg' alt='logo' />
-          <Separator className='border border-gray-100' />
+          <Separator className='border border-gray-100 my-2' />
           <NavItems />
+          <UserDropdown />
           <div className='mt-auto flex flex-row gap-4 items-center w-full'>
             {Cookies.get('user') ? (
               <Button

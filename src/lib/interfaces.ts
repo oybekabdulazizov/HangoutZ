@@ -8,6 +8,8 @@ export interface IUser_Simple {
   name: string;
   lastname: string;
   email: string;
+  dateOfBirth: Date;
+  profilePhotoUrl: string;
 }
 
 export interface IEvent {
