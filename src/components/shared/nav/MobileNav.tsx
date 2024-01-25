@@ -5,7 +5,7 @@ import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { menuIcon } from '@/assets/icons';
 import { Separator } from '@radix-ui/react-select';
 import NavItems from './NavItems';
-import { Button } from '../ui/button';
+import { Button } from '../../ui/button';
 
 const MobileNav: React.FC<{ handleLogout: () => void }> = ({
   handleLogout,

@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 
 import Footer from './Footer';
-import Navbar from './Navbar';
+import Navbar from './nav/Navbar';
 
 const Layout: FC = ({}) => {
   return (
