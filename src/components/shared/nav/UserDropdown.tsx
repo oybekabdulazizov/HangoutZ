@@ -12,14 +12,21 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
+import { useLogOutMutation } from '@/store';
+import { clearCookie } from '@/lib/utils';
 
-const UserDropdown: React.FC<{ handleLogout?: () => void }> = ({
-  handleLogout,
-}) => {
+const UserDropdown: React.FC = ({}) => {
+  const [logOut] = useLogOutMutation();
   const [sessionUser, _setSessionUser] = useState<IUser_Simple | null>(() => {
     const userCookie = Cookies.get('user');
     return userCookie ? JSON.parse(userCookie) : null;
   });
+
+  const handleLogout = async () => {
+    await logOut().unwrap();
+    clearCookie();
+    _setSessionUser(null);
+  };
 
   return (
     <DropdownMenu>
@@ -32,7 +39,7 @@ const UserDropdown: React.FC<{ handleLogout?: () => void }> = ({
           aria-hidden='true'
         />
       </DropdownMenuTrigger>
-      <DropdownMenuContent className='w-[180px] group absolute -left-[10.5rem] md:-left-[5.5rem]'>
+      <DropdownMenuContent className='w-[180px] absolute group -left-[11rem] md:-left-[8rem]'>
         {/* <DropdownMenuLabel className='p-medium-16'>
           My Account
         </DropdownMenuLabel>
@@ -42,7 +49,7 @@ const UserDropdown: React.FC<{ handleLogout?: () => void }> = ({
             Profile
           </Link>
         </DropdownMenuItem>
-        <div className='hidden md:inline'>
+        <div className=''>
           {sessionUser ? (
             <>
               <DropdownMenuSeparator />
